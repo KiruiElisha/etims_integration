@@ -431,6 +431,7 @@ def build(doc, device, settings, trader_invoice_number):
 		trader_invoice_number=str(trader_invoice_number),
 		is_live=not device.is_test_mode,
 		invoice_type=INVOICE_CREDIT if is_return else INVOICE_ORIGINAL,
+		discount_amount=sum((line.discount_amount for line in lines), ZERO),
 		cash_amount=payments["cash"],
 		check_amount=payments["check"],
 		card_amount=payments["card"],

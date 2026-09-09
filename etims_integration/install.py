@@ -335,9 +335,14 @@ QUANTITY_UNITS = [
 # spreadsheet, so only the generic fallbacks are seeded. Import the full list
 # with `bench --site <site> data-import` against ETIMS Item Classification:
 # https://docs.google.com/spreadsheets/d/1g3Xm0g6rgLNVp8h5paTednaBRkfzppnTulqg2OY5xNI
+# Only the two generic codes that actually appear in the vendor documentation.
+# The official list runs to thousands of codes published as a spreadsheet, and a
+# plausible-looking invented code is worse than a missing one: the device accepts
+# it and the goods are misdeclared to KRA. Load the real list with
+# seed.import_item_classifications.
 ITEM_CLASSIFICATIONS = [
+	("99000000", "General (unclassified)"),
 	("99010000", "General goods (unclassified)"),
-	("99020000", "General services (unclassified)"),
 ]
 
 

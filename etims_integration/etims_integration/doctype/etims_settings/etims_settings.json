@@ -129,7 +129,7 @@
   {
    "fieldname": "tax_mapping_note",
    "fieldtype": "HTML",
-   "options": "<p class='text-muted'>Maps an Item Tax Template to the eTIMS VAT band it represents. An item with no band here and none on the Item itself is <b>never guessed at</b> - its invoice is blocked instead, because a wrong band is rejected by eTIMS (E321) and misdeclares tax.</p>"
+   "options": "<p class=\"text-muted\">Maps an Item Tax Template to the eTIMS VAT band it represents. An item with no band here and none on the Item itself is <b>never guessed at</b> - its invoice is blocked instead, because a wrong band is rejected by eTIMS (E321) and misdeclares tax.</p>"
   },
   {
    "fieldname": "tax_mappings",

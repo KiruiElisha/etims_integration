@@ -20,6 +20,7 @@ from frappe.utils.synchronization import filelock
 from etims_integration.comstore.errors import ComstoreError
 from etims_integration.etims_integration.doctype.etims_device.etims_device import resolve_device
 from etims_integration.mapping import invoice as invoice_mapping
+from etims_integration.services import response_log
 
 # Trader invoice numbers are numeric and monotonic. The offset keeps them a
 # consistent width from the first invoice, which some firmware is fussy about,
@@ -209,6 +210,14 @@ def _send(name, timeout=None):
 		)
 
 	if not mapped.sendable:
+		# Recorded even though nothing was sent: "we deliberately did not send, and
+		# here is why" is exactly the question the log exists to answer.
+		response_log.record(
+			transmission,
+			response_log.OUTCOME_ERROR,
+			request_payload=mapped.as_payload() if mapped.sign_structure else None,
+			message=" ".join(mapped.concerns),
+		)
 		# Fiscalisation is irreversible, so anything that would declare figures
 		# differing from the invoice waits for a person. This is the single most
 		# important guard in the app.
@@ -239,6 +248,13 @@ def _send(name, timeout=None):
 			mapped.lines, mapped.sign_structure, is_test=cint(device.is_test_mode)
 		)
 	except ComstoreError as e:
+		response_log.record(
+			transmission,
+			response_log.OUTCOME_UNREACHABLE if e.retryable else response_log.OUTCOME_REJECTED,
+			request_payload=e.payload or mapped.as_payload(),
+			error=e,
+			endpoint=client.base_url,
+		)
 		if e.retryable:
 			transmission.mark_failed(
 				e,
@@ -258,6 +274,13 @@ def _send(name, timeout=None):
 		return transmission.status
 	except Exception:
 		frappe.log_error(title="eTIMS: unexpected send failure", message=frappe.get_traceback())
+		response_log.record(
+			transmission,
+			response_log.OUTCOME_ERROR,
+			request_payload=mapped.as_payload(),
+			message=frappe.get_traceback(limit=3),
+			endpoint=client.base_url,
+		)
 		transmission.mark_blocked(
 			_("Unexpected failure while sending."),
 			remedy=_("See the Error Log."),
@@ -265,6 +288,13 @@ def _send(name, timeout=None):
 		)
 		return transmission.status
 
+	response_log.record(
+		transmission,
+		response_log.OUTCOME_SIGNED,
+		request_payload=payload,
+		result=result,
+		endpoint=client.base_url,
+	)
 	transmission.mark_signed(result, request_payload=payload)
 	return "Signed"
 

@@ -53,7 +53,9 @@ class ETIMSTransmission(Document):
 			"receipt_signature": result.receipt_signature,
 			"signature_link": result.signature_link,
 			"signature": result.signature,
-			"signed_at": now_datetime(),
+			# The device's own stamp where it gave a readable one. On a queue
+			# that retries, that can be minutes before we processed the reply.
+			"signed_at": result.signed_at() or now_datetime(),
 			"error_code": None,
 			"error_summary": None,
 			"remedy": None,

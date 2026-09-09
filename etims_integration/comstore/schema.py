@@ -11,6 +11,7 @@ to its lines exactly (E341), and binary floats cannot promise that.
 """
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from decimal import ROUND_HALF_UP, Decimal
 
 TWO_PLACES = Decimal("0.01")
@@ -141,6 +142,11 @@ class SignStructure:
 	cash_amount: Decimal = Decimal("0")
 	card_amount: Decimal = Decimal("0")
 	check_amount: Decimal = Decimal("0")
+	# Total discount across the lines. Absent from the PDF's parameter table but
+	# present in both of the vendor's own Postman examples, so it is sent: an
+	# undocumented field the vendor always sends is likelier to be expected than
+	# ignored.
+	discount_amount: Decimal = Decimal("0")
 	pin_of_buyer: str = ""
 	exemption_number: str = ""
 	relevant_invoice_number: str = ""
@@ -156,6 +162,7 @@ class SignStructure:
 		payload = {
 			"SignType": "1" if self.is_live else "0",
 			"CashAmt": _s(money(self.cash_amount)),
+			"DiscAmt": _s(money(self.discount_amount)),
 			"CheckAmt": _s(money(self.check_amount)),
 			"CardAmt": _s(money(self.card_amount)),
 			"InvoiceType": self.invoice_type,
@@ -187,6 +194,39 @@ class SignStructure:
 		return payload
 
 
+# The device stamps its own time and the exact shape varies by firmware. Parsing
+# is best-effort by design: an unreadable stamp must never cost us the rest of the
+# reply, so every caller falls back to the server clock rather than failing.
+DEVICE_TIME_FORMATS = (
+	"%Y-%m-%d %H:%M:%S",
+	"%Y-%m-%d %H:%M",
+	"%Y-%m-%dT%H:%M:%S",
+	"%Y/%m/%d %H:%M:%S",
+	"%d/%m/%Y %H:%M:%S",
+	"%d/%m/%Y %H:%M",
+	"%d-%m-%Y %H:%M:%S",
+	"%Y%m%d%H%M%S",
+	"%Y-%m-%d",
+	"%d/%m/%Y",
+)
+
+
+def parse_device_timestamp(value):
+	"""Device time string -> datetime, or None if no known format matches."""
+	if not value:
+		return None
+	if isinstance(value, datetime):
+		return value
+
+	text = str(value).strip()
+	for fmt in DEVICE_TIME_FORMATS:
+		try:
+			return datetime.strptime(text, fmt)
+		except ValueError:
+			continue
+	return None
+
+
 @dataclass
 class WorkflowResult:
 	"""The signature the device returns once KRA has accepted an invoice."""
@@ -203,6 +243,14 @@ class WorkflowResult:
 	timestamp: str = ""
 	message: str = ""
 	raw: dict = field(default_factory=dict)
+
+	def signed_at(self):
+		"""
+		When the *device* says it signed, not when we happened to process the
+		reply. On a queue that retries, those can be minutes apart, and the fiscal
+		record should carry the device's account of it.
+		"""
+		return parse_device_timestamp(self.timestamp)
 
 	@classmethod
 	def from_response(cls, data):
