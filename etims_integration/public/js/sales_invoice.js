@@ -15,6 +15,8 @@ frappe.ui.form.on("Sales Invoice", {
 			frm.add_custom_button(__("Send to eTIMS"), () => send(frm), __("eTIMS"));
 		}
 
+		frm.add_custom_button(__("Device History"), () => history(frm), __("eTIMS"));
+
 		if (frm.doc.custom_etims_transmission) {
 			frm.add_custom_button(
 				__("Open Transmission"),
@@ -126,4 +128,55 @@ function summary_html(d) {
 		: "";
 
 	return concerns + totals + bands;
+}
+
+// Every exchange with the device for this invoice, oldest first. The Transmission
+// only carries the latest attempt; this is where a retry's history lives.
+function history(frm) {
+	frappe.call({
+		method: "etims_integration.services.response_log.get_history",
+		args: { invoice: frm.doc.name },
+		freeze: true,
+		callback: (r) => {
+			const rows = r.message || [];
+			const esc = frappe.utils.escape_html;
+
+			const body = rows.length
+				? `<table class="table table-bordered" style="font-size:12px">
+						<thead><tr>
+							<th>#</th><th>${__("When")}</th><th>${__("Outcome")}</th>
+							<th>${__("Code")}</th><th>${__("Detail")}</th>
+						</tr></thead>
+						<tbody>${rows
+							.map((x) => {
+								const colour = { Signed: "green", Rejected: "red", Unreachable: "orange" }[x.outcome] || "gray";
+								const detail = x.cu_invoice_no
+									? `${__("Receipt")} ${esc(x.cu_invoice_no)}`
+									: esc(x.remedy || x.message || "");
+								return `<tr>
+									<td>${x.attempt || ""}</td>
+									<td>${frappe.datetime.str_to_user(x.creation)}</td>
+									<td><span class="indicator-pill ${colour}">${esc(x.outcome || "")}</span>
+										${x.is_test ? ` <span class="text-muted">${__("test")}</span>` : ""}</td>
+									<td>${esc(x.response_code || x.error_code || "")}</td>
+									<td>${detail}</td>
+								</tr>`;
+							})
+							.join("")}</tbody>
+					</table>`
+				: `<p class="text-muted">${__("Nothing has been sent to the device for this invoice yet.")}</p>`;
+
+			const dialog = new frappe.ui.Dialog({
+				title: __("eTIMS Device History"),
+				size: "large",
+				fields: [{ fieldtype: "HTML", fieldname: "log" }],
+				primary_action_label: __("Close"),
+				primary_action() {
+					this.hide();
+				},
+			});
+			dialog.fields_dict.log.$wrapper.html(body);
+			dialog.show();
+		},
+	});
 }

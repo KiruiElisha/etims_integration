@@ -15,7 +15,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Operations",
-   "link_count": 3,
+   "link_count": 4,
    "onboard": 0,
    "type": "Card Break"
   },
@@ -28,6 +28,17 @@
    "link_to": "ETIMS Transmission",
    "link_type": "DocType",
    "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "description": "Every exchange with the device, one row per attempt - the audit trail.",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "KRA Responses",
+   "link_count": 0,
+   "link_to": "ETIMS KRA Response",
+   "link_type": "DocType",
+   "onboard": 0,
    "type": "Link"
   },
   {
