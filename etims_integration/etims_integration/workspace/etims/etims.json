@@ -1,0 +1,135 @@
+{
+ "charts": [],
+ "content": "[{\"id\": \"etims-hdr\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>eTIMS</b></span>\", \"col\": 12}}, {\"id\": \"etims-sp1\", \"type\": \"spacer\", \"data\": {\"col\": 12}}, {\"id\": \"etims-crd\", \"type\": \"card\", \"data\": {\"card_name\": \"Operations\", \"col\": 4}}, {\"id\": \"etims-crd2\", \"type\": \"card\", \"data\": {\"card_name\": \"Registration\", \"col\": 4}}, {\"id\": \"etims-crd3\", \"type\": \"card\", \"data\": {\"card_name\": \"KRA Codes\", \"col\": 4}}]",
+ "creation": "2026-08-31 16:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "file",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "eTIMS",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operations",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "description": "Every fiscalisation attempt, its signature or its failure.",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Transmissions",
+   "link_count": 0,
+   "link_to": "ETIMS Transmission",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Devices",
+   "link_count": 0,
+   "link_to": "ETIMS Device",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Settings",
+   "link_count": 0,
+   "link_to": "ETIMS Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Registration",
+   "link_count": 2,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "description": "Items must be registered before their invoices can be fiscalised.",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Registrations",
+   "link_count": 0,
+   "link_to": "ETIMS Item Registration",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Buyer Registrations",
+   "link_count": 0,
+   "link_to": "ETIMS Buyer Registration",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "KRA Codes",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Item Classifications",
+   "link_count": 0,
+   "link_to": "ETIMS Item Classification",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Packaging Units",
+   "link_count": 0,
+   "link_to": "ETIMS Packaging Unit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Quantity Units",
+   "link_count": 0,
+   "link_to": "ETIMS Quantity Unit",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-31 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ETIMS Integration",
+ "name": "eTIMS",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 50.0,
+ "shortcuts": [],
+ "title": "eTIMS",
+ "type": "Workspace"
+}

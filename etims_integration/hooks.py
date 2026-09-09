@@ -1,255 +1,93 @@
 app_name = "etims_integration"
 app_title = "ETIMS Integration"
 app_publisher = "Rono"
-app_description = "ETIMS integration for erpnext"
+app_description = "KRA eTIMS integration for ERPNext, via the Comstore Smart VSCU service"
 app_email = "ronoelisha625@gmail.com"
 app_license = "mit"
 
-# Apps
-# ------------------
+required_apps = ["erpnext"]
 
-# required_apps = []
+# ---------------------------------------------------------------------- assets
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "etims_integration",
-# 		"logo": "/assets/etims_integration/logo.png",
-# 		"title": "ETIMS Integration",
-# 		"route": "/etims_integration",
-# 		"has_permission": "etims_integration.api.permission.has_app_permission"
-# 	}
-# ]
+doctype_js = {
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"ETIMS Device": "public/js/etims_device.js",
+}
 
-# Includes in <head>
-# ------------------
+doctype_list_js = {"Item": "public/js/item_list.js"}
 
-# include js, css files in header of desk.html
-# app_include_css = "/assets/etims_integration/css/etims_integration.css"
-# app_include_js = "/assets/etims_integration/js/etims_integration.js"
+add_to_apps_screen = [
+	{
+		"name": "etims_integration",
+		"logo": "/assets/etims_integration/images/etims.svg",
+		"title": "eTIMS",
+		"route": "/app/etims",
+	}
+]
 
-# include js, css files in header of web template
-# web_include_css = "/assets/etims_integration/css/etims_integration.css"
-# web_include_js = "/assets/etims_integration/js/etims_integration.js"
+# ----------------------------------------------------------------- lifecycle
 
-# include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "etims_integration/public/scss/website"
+after_install = "etims_integration.install.after_install"
+# Custom fields and code masters are reconciled on every migrate, so a site that
+# skipped a release still ends up with the fields the code expects.
+after_migrate = "etims_integration.install.after_migrate"
 
-# include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
-# webform_include_css = {"doctype": "public/css/doctype.css"}
+# ------------------------------------------------------------------- document
 
-# include js in page
-# page_js = {"page" : "public/js/file.js"}
+doc_events = {
+	"Sales Invoice": {
+		"validate": "etims_integration.overrides.sales_invoice.validate",
+		"on_submit": "etims_integration.overrides.sales_invoice.on_submit",
+		"before_cancel": "etims_integration.overrides.sales_invoice.before_cancel",
+		"on_cancel": "etims_integration.overrides.sales_invoice.on_cancel",
+	},
+	"Item": {
+		"on_update": "etims_integration.overrides.item.on_update",
+	},
+	"Customer": {
+		"on_update": "etims_integration.overrides.customer.on_update",
+	},
+}
 
-# include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+# ------------------------------------------------------------------ scheduler
 
-# Svg Icons
-# ------------------
-# include app icons in desk
-# app_include_icons = "etims_integration/public/icons.svg"
+scheduler_events = {
+	"cron": {
+		# Transport faults clear on their own timescale; this only picks up
+		# transmissions whose own backoff has already elapsed.
+		"*/15 * * * *": [
+			"etims_integration.services.transmit.retry_failed",
+		],
+	},
+	"hourly_long": [
+		# A signature is not compliance: this is what notices the device is sitting
+		# on invoices KRA has never seen.
+		"etims_integration.services.reconcile.reconcile_devices",
+		"etims_integration.services.transmit.queue_stale",
+	],
+	"daily_long": [
+		"etims_integration.services.item_sync.sync_pending",
+		"etims_integration.services.buyer_sync.sync_pending",
+	],
+}
 
-# Home Pages
-# ----------
+# --------------------------------------------------------------------- jinja
 
-# application home page (will override Website Settings)
-# home_page = "login"
+jinja = {
+	"methods": [
+		"etims_integration.utils.print_format.etims_qr_code",
+		"etims_integration.utils.print_format.etims_receipt_details",
+	]
+}
 
-# website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
+# ------------------------------------------------------------------ fixtures
 
-# Generators
-# ----------
-
-# automatically create page for each record of this doctype
-# website_generators = ["Web Page"]
-
-# automatically load and sync documents of this doctype from downstream apps
-# importable_doctypes = [doctype_1]
-
-# Jinja
-# ----------
-
-# add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "etims_integration.utils.jinja_methods",
-# 	"filters": "etims_integration.utils.jinja_filters"
-# }
-
-# Installation
-# ------------
-
-# before_install = "etims_integration.install.before_install"
-# after_install = "etims_integration.install.after_install"
-
-# Uninstallation
-# ------------
-
-# before_uninstall = "etims_integration.uninstall.before_uninstall"
-# after_uninstall = "etims_integration.uninstall.after_uninstall"
-
-# Integration Setup
-# ------------------
-# To set up dependencies/integrations with other apps
-# Name of the app being installed is passed as an argument
-
-# before_app_install = "etims_integration.utils.before_app_install"
-# after_app_install = "etims_integration.utils.after_app_install"
-
-# Integration Cleanup
-# -------------------
-# To clean up dependencies/integrations with other apps
-# Name of the app being uninstalled is passed as an argument
-
-# before_app_uninstall = "etims_integration.utils.before_app_uninstall"
-# after_app_uninstall = "etims_integration.utils.after_app_uninstall"
-
-# Desk Notifications
-# ------------------
-# See frappe.core.notifications.get_notification_config
-
-# notification_config = "etims_integration.notifications.get_notification_config"
-
-# Permissions
-# -----------
-# Permissions evaluated in scripted ways
-
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+# Nothing is shipped as a fixture, deliberately.
 #
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
-
-# Document Events
-# ---------------
-# Hook on document methods and events
-
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
-
-# Scheduled Tasks
-# ---------------
-
-# scheduler_events = {
-# 	"all": [
-# 		"etims_integration.tasks.all"
-# 	],
-# 	"daily": [
-# 		"etims_integration.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"etims_integration.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"etims_integration.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"etims_integration.tasks.monthly"
-# 	],
-# }
-
-# Testing
-# -------
-
-# before_tests = "etims_integration.install.before_tests"
-
-# Extend DocType Class
-# ------------------------------
-#
-# Specify custom mixins to extend the standard doctype controller.
-# extend_doctype_class = {
-# 	"Task": "etims_integration.custom.task.CustomTaskMixin"
-# }
-
-# Overriding Methods
-# ------------------------------
-#
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "etims_integration.event.get_events"
-# }
-#
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "etims_integration.task.get_dashboard_data"
-# }
-
-# exempt linked doctypes from being automatically cancelled
-#
-# auto_cancel_exempted_doctypes = ["Auto Repeat"]
-
-# Ignore links to specified DocTypes when deleting documents
-# -----------------------------------------------------------
-
-# ignore_links_on_delete = ["Communication", "ToDo"]
-
-# Request Events
-# ----------------
-# before_request = ["etims_integration.utils.before_request"]
-# after_request = ["etims_integration.utils.after_request"]
-
-# Job Events
-# ----------
-# before_job = ["etims_integration.utils.before_job"]
-# after_job = ["etims_integration.utils.after_job"]
-
-# User Data Protection
-# --------------------
-
-# user_data_fields = [
-# 	{
-# 		"doctype": "{doctype_1}",
-# 		"filter_by": "{filter_by}",
-# 		"redact_fields": ["{field_1}", "{field_2}"],
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_2}",
-# 		"filter_by": "{filter_by}",
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_3}",
-# 		"strict": False,
-# 	},
-# 	{
-# 		"doctype": "{doctype_4}"
-# 	}
-# ]
-
-# Authentication and authorization
-# --------------------------------
-
-# auth_hooks = [
-# 	"etims_integration.auth.validate"
-# ]
-
-# Automatically update python controller files with type annotations for this app.
-export_python_type_annotations = True
-
-# Require all whitelisted methods to have type annotations
-require_type_annotated_api_methods = True
-
-# default_log_clearing_doctypes = {
-# 	"Logging DocType Name": 30  # days to retain logs
-# }
-
-# Translation
-# ------------
-# List of apps whose translatable strings should be excluded from this app's translations.
-# ignore_translatable_strings_from = []
-
+#  * Custom Fields are created by install.setup(). Fixtures on *standard* doctypes
+#    collide with other apps that touch the same doctype on migrate, and cannot
+#    express "create only if absent".
+#  * The app's own DocTypes and its Print Format live under etims_integration/ and
+#    are installed by bench migrate. Exporting those as fixtures too would leave
+#    two competing definitions racing on every migrate.
+fixtures = []

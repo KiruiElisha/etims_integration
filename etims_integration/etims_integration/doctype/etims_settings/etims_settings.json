@@ -1,0 +1,236 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "creation": "2026-08-31 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "submission_section",
+  "send_on_submit",
+  "send_credit_notes",
+  "submit_mode",
+  "column_break_submission",
+  "block_submission_on_failure",
+  "default_payment_bucket",
+  "allow_backdated",
+  "allow_cancel_after_signing",
+  "retry_section",
+  "max_retries",
+  "column_break_retry",
+  "retry_backoff_minutes",
+  "tax_section",
+  "tax_mapping_note",
+  "tax_mappings",
+  "item_sync_section",
+  "auto_sync_items",
+  "push_stock",
+  "column_break_item_sync",
+  "item_sync_batch_size",
+  "reconciliation_section",
+  "reconcile_enabled",
+  "auto_manual_upload",
+  "column_break_reconcile",
+  "pending_threshold"
+ ],
+ "fields": [
+  {
+   "default": "1",
+   "description": "Master switch. When off, nothing is sent and nothing is queued.",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enable eTIMS Integration"
+  },
+  {
+   "fieldname": "submission_section",
+   "fieldtype": "Section Break",
+   "label": "Submission"
+  },
+  {
+   "default": "1",
+   "fieldname": "send_on_submit",
+   "fieldtype": "Check",
+   "label": "Fiscalise Invoices on Submit"
+  },
+  {
+   "default": "1",
+   "fieldname": "send_credit_notes",
+   "fieldtype": "Check",
+   "label": "Fiscalise Credit Notes"
+  },
+  {
+   "default": "Background",
+   "description": "Background queues the invoice and returns immediately - the right choice almost always. Synchronous waits for the signature, for POS counters that must print the QR code straight away.",
+   "fieldname": "submit_mode",
+   "fieldtype": "Select",
+   "label": "Submission Mode",
+   "options": "Background\nSynchronous"
+  },
+  {
+   "fieldname": "column_break_submission",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "Only meaningful in Synchronous mode. Off means the invoice submits and the Transmission retries in the background.",
+   "fieldname": "block_submission_on_failure",
+   "fieldtype": "Check",
+   "label": "Block Invoice Submission on Failure"
+  },
+  {
+   "default": "Cash",
+   "description": "Used for non-POS invoices, which carry no payment rows to split.",
+   "fieldname": "default_payment_bucket",
+   "fieldtype": "Select",
+   "label": "Default Payment Type",
+   "options": "Cash\nCard\nCheck"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_backdated",
+   "fieldtype": "Check",
+   "label": "Allow Backdated Invoices"
+  },
+  {
+   "default": "0",
+   "description": "A signature cannot be withdrawn from KRA. The compliant way to reverse a fiscalised sale is a credit note, so cancelling one is blocked by default.",
+   "fieldname": "allow_cancel_after_signing",
+   "fieldtype": "Check",
+   "label": "Allow Cancelling Fiscalised Invoices"
+  },
+  {
+   "fieldname": "retry_section",
+   "fieldtype": "Section Break",
+   "label": "Retries"
+  },
+  {
+   "default": "5",
+   "description": "Applies only to transport faults. A payload the device rejected is never retried automatically - it is parked as Blocked with the remedy attached.",
+   "fieldname": "max_retries",
+   "fieldtype": "Int",
+   "label": "Max Retries"
+  },
+  {
+   "fieldname": "column_break_retry",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "2",
+   "description": "Doubles each attempt.",
+   "fieldname": "retry_backoff_minutes",
+   "fieldtype": "Int",
+   "label": "Initial Retry Backoff (minutes)"
+  },
+  {
+   "fieldname": "tax_section",
+   "fieldtype": "Section Break",
+   "label": "Tax Bands"
+  },
+  {
+   "fieldname": "tax_mapping_note",
+   "fieldtype": "HTML",
+   "options": "<p class='text-muted'>Maps an Item Tax Template to the eTIMS VAT band it represents. An item with no band here and none on the Item itself is <b>never guessed at</b> - its invoice is blocked instead, because a wrong band is rejected by eTIMS (E321) and misdeclares tax.</p>"
+  },
+  {
+   "fieldname": "tax_mappings",
+   "fieldtype": "Table",
+   "label": "Tax Mappings",
+   "options": "ETIMS Tax Mapping"
+  },
+  {
+   "fieldname": "item_sync_section",
+   "fieldtype": "Section Break",
+   "label": "Item Registration"
+  },
+  {
+   "default": "1",
+   "description": "Queue an item for registration when it is created or its eTIMS fields change.",
+   "fieldname": "auto_sync_items",
+   "fieldtype": "Check",
+   "label": "Register Items Automatically"
+  },
+  {
+   "default": "0",
+   "description": "Sends stock deltas so the device's own stock does not deplete (E090/E351).",
+   "fieldname": "push_stock",
+   "fieldtype": "Check",
+   "label": "Push Stock Changes to Device"
+  },
+  {
+   "fieldname": "column_break_item_sync",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "50",
+   "fieldname": "item_sync_batch_size",
+   "fieldtype": "Int",
+   "label": "Items per Batch"
+  },
+  {
+   "fieldname": "reconciliation_section",
+   "fieldtype": "Section Break",
+   "label": "Reconciliation"
+  },
+  {
+   "default": "1",
+   "fieldname": "reconcile_enabled",
+   "fieldtype": "Check",
+   "label": "Poll Devices for Pending Invoices"
+  },
+  {
+   "default": "1",
+   "description": "Calls the device's manual-upload endpoint when its backlog stops shrinking.",
+   "fieldname": "auto_manual_upload",
+   "fieldtype": "Check",
+   "label": "Force Upload When Invoices Stall"
+  },
+  {
+   "fieldname": "column_break_reconcile",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "Raise an alert when a device holds more than this many invoices KRA has not taken.",
+   "fieldname": "pending_threshold",
+   "fieldtype": "Int",
+   "label": "Backlog Alert Threshold"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-08-31 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ETIMS Integration",
+ "name": "ETIMS Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

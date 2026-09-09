@@ -1,0 +1,314 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:ETIMS-TX-{YY}{MM}-{#####}",
+ "creation": "2026-08-31 16:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_invoice",
+  "device",
+  "company",
+  "invoice_type",
+  "column_break_head",
+  "status",
+  "is_test",
+  "trader_invoice_no",
+  "amounts_section",
+  "posting_date",
+  "currency",
+  "grand_total",
+  "column_break_amounts",
+  "declared_total",
+  "band_summary",
+  "signature_section",
+  "cu_invoice_no",
+  "scu_id",
+  "receipt_signature",
+  "internal_data",
+  "column_break_signature",
+  "signed_at",
+  "signature_link",
+  "signature",
+  "diagnostics_section",
+  "attempt",
+  "next_attempt_at",
+  "error_code",
+  "error_summary",
+  "remedy",
+  "error_message",
+  "payload_section",
+  "request_json",
+  "response_json"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "device",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "eTIMS Device",
+   "options": "ETIMS Device",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoice_type",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Invoice Type",
+   "options": "Original\nCredit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Queued",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Queued\nSending\nSigned\nFailed\nBlocked\nCancelled",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "description": "This transmission was never sent to KRA.",
+   "fieldname": "is_test",
+   "fieldtype": "Check",
+   "label": "Test Mode",
+   "read_only": 1
+  },
+  {
+   "description": "The idempotency key. Reused verbatim on every retry, because the device hard-rejects duplicates and that check cannot be disabled.",
+   "fieldname": "trader_invoice_no",
+   "fieldtype": "Data",
+   "label": "Trader Invoice Number",
+   "read_only": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "amounts_section",
+   "fieldtype": "Section Break",
+   "label": "Amounts"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Invoice Total",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_amounts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "declared_total",
+   "fieldtype": "Currency",
+   "label": "Declared to KRA",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "band_summary",
+   "fieldtype": "Small Text",
+   "label": "Band Summary",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.status=='Signed'",
+   "fieldname": "signature_section",
+   "fieldtype": "Section Break",
+   "label": "Fiscal Signature"
+  },
+  {
+   "description": "The device's receipt number. A credit note against this invoice must quote it.",
+   "fieldname": "cu_invoice_no",
+   "fieldtype": "Data",
+   "label": "CU Invoice Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "scu_id",
+   "fieldtype": "Data",
+   "label": "SCU ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "receipt_signature",
+   "fieldtype": "Data",
+   "label": "Receipt Signature",
+   "read_only": 1
+  },
+  {
+   "fieldname": "internal_data",
+   "fieldtype": "Data",
+   "label": "Internal Data",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_signature",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "signed_at",
+   "fieldtype": "Datetime",
+   "label": "Signed At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "signature_link",
+   "fieldtype": "Small Text",
+   "label": "Verification Link",
+   "read_only": 1
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Small Text",
+   "label": "Raw Signature",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "diagnostics_section",
+   "fieldtype": "Section Break",
+   "label": "Diagnostics"
+  },
+  {
+   "fieldname": "attempt",
+   "fieldtype": "Int",
+   "label": "Attempts",
+   "read_only": 1
+  },
+  {
+   "fieldname": "next_attempt_at",
+   "fieldtype": "Datetime",
+   "label": "Next Attempt",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_code",
+   "fieldtype": "Data",
+   "label": "Error Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_summary",
+   "fieldtype": "Data",
+   "label": "Error",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remedy",
+   "fieldtype": "Small Text",
+   "label": "How to Fix",
+   "read_only": 1
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Text",
+   "label": "Device Message",
+   "read_only": 1
+  },
+  {
+   "collapsible": 1,
+   "collapsible_depends_on": "eval:1",
+   "fieldname": "payload_section",
+   "fieldtype": "Section Break",
+   "label": "Payload"
+  },
+  {
+   "fieldname": "request_json",
+   "fieldtype": "Code",
+   "label": "Request",
+   "options": "JSON",
+   "read_only": 1
+  },
+  {
+   "fieldname": "response_json",
+   "fieldtype": "Code",
+   "label": "Response",
+   "options": "JSON",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-31 16:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ETIMS Integration",
+ "name": "ETIMS Transmission",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "sales_invoice"
+}
