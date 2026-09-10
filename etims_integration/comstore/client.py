@@ -83,6 +83,23 @@ def normalise_base_url(host, port=None, use_https=False):
 	return f"{scheme}://{host}"
 
 
+def _count(value):
+	"""
+	A counter from the device, or 0.
+
+	The field is documented as an integer but arrives as a string, a float or
+	null depending on firmware, and a bare ``int()`` on any of those raises
+	ValueError *outside* the ComstoreError contract -- which reaches the caller as
+	an unclassified crash instead of a device fault with a remedy.
+	"""
+	if value in (None, "", "null"):
+		return 0
+	try:
+		return int(float(value))
+	except (TypeError, ValueError):
+		return 0
+
+
 class ComstoreClient:
 	def __init__(self, base_url, api_key="", serial_number="", timeout=DEFAULT_TIMEOUT, session=None):
 		self.base_url = base_url.rstrip("/")
@@ -149,9 +166,12 @@ class ComstoreClient:
 
 		if response.status_code >= 400 or data is None:
 			if from_device:
-				# The device itself rejected this. Its message carries the E-code.
+				# The device itself rejected this. The code may be in the prose, in
+				# the error_code field, or in neither -- classify() is given both.
 				message = self._message(data)
-				raise ComstoreError(classify(message), message, payload=payload, response=data)
+				raise ComstoreError(
+					classify(message, self._error_code(data)), message, payload=payload, response=data
+				)
 
 			# Something in front of the device answered, or nothing usable did.
 			raise ComstoreError(
@@ -165,7 +185,9 @@ class ComstoreClient:
 		# "success", the buyer endpoints answer "Success".
 		if data.get("success", data.get("Success")) is False:
 			message = self._message(data)
-			raise ComstoreError(classify(message), message, payload=payload, response=data)
+			raise ComstoreError(
+				classify(message, self._error_code(data)), message, payload=payload, response=data
+			)
 
 		return data
 
@@ -188,13 +210,55 @@ class ComstoreClient:
 		return bool(cls.DEVICE_KEYS & set(data))
 
 	@staticmethod
-	def _message(data):
+	def _error_code(data):
+		"""The reply's own error code, where the endpoint carries one."""
+		for key in ("error_code", "ErrorCode", "errorCode"):
+			value = data.get(key)
+			if value not in (None, "", "null"):
+				return value
+		return None
+
+	@classmethod
+	def _message(cls, data):
+		"""
+		The device's own account of the failure, said once.
+
+		The endpoints repeat themselves -- ``error_message`` is frequently the
+		literal string ``"Error Code -99"`` beside an ``error_code`` of ``-99`` --
+		and joining the three fields blindly produced
+		``"... | Error Code -99 | -99"``. Duplicates are dropped so the message
+		reads like something a person wrote.
+		"""
+		code = cls._error_code(data)
 		parts = [
 			data.get("message") or data.get("Message") or "",
 			data.get("error_message") or data.get("ErrorMessage") or "",
-			str(data.get("error_code") or data.get("ErrorCode") or ""),
+			f"code {code}" if code is not None else "",
 		]
-		return " | ".join(p for p in parts if p and p != "None") or "No message returned by the device."
+
+		# "Error Code -99" adds nothing beside "code -99", and neither does any part
+		# already contained in another. Where two parts overlap the longer one wins:
+		# it is the one that actually says something.
+		seen = []
+		for part in parts:
+			part = str(part).strip()
+			if not part or part == "None":
+				continue
+
+			replaced = False
+			for index, kept in enumerate(seen):
+				if part.upper() in kept.upper():
+					replaced = True
+					break
+				if kept.upper() in part.upper():
+					seen[index] = part
+					replaced = True
+					break
+
+			if not replaced:
+				seen.append(part)
+
+		return " | ".join(seen) or "No message returned by the device."
 
 	# ------------------------------------------------------------------ endpoints
 
@@ -258,8 +322,11 @@ class ComstoreClient:
 		result = WorkflowResult.from_response(data)
 		if not result.cu_invoice_number and not result.signature:
 			# A 200 with no signature is a rejection the service failed to flag.
+			# This is the shape the live device actually returns for E337: every
+			# signature field null, `success: false`, and the code only ever
+			# spelled out in the prose.
 			raise ComstoreError(
-				classify(result.message),
+				classify(result.message, self._error_code(data)),
 				f"Device returned no signature: {result.message}",
 				payload=payload,
 				response=data,
@@ -297,10 +364,23 @@ class ComstoreClient:
 		explicit that it does not always succeed.
 		"""
 		data = self._call("GET", f"/api/invoices/status/{serial_number or self.serial_number}")
+
+		# A reply that carries none of the three counters is not a status reading,
+		# whatever its status code said. Coercing it would report a clean backlog
+		# of zero and quietly retire the one check that notices invoices stuck on
+		# the device -- so it is raised as the device fault it is.
+		if not any(key in data for key in ("invoices_on_device", "invoices_uploaded_to_etims", "pending_invoices")):
+			message = self._message(data)
+			raise ComstoreError(
+				classify(message, self._error_code(data)),
+				f"Invoice status did not include any counters: {message}",
+				response=data,
+			)
+
 		return {
-			"on_device": int(data.get("invoices_on_device") or 0),
-			"uploaded": int(data.get("invoices_uploaded_to_etims") or 0),
-			"pending": int(data.get("pending_invoices") or 0),
+			"on_device": _count(data.get("invoices_on_device")),
+			"uploaded": _count(data.get("invoices_uploaded_to_etims")),
+			"pending": _count(data.get("pending_invoices")),
 			"raw": data,
 		}
 

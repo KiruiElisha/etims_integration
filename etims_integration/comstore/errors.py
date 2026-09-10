@@ -20,6 +20,7 @@ Codes and their meanings are from Comstore API Documentation 3.4.2, "API Errors"
 (pp. 33-42).
 """
 
+import re
 from dataclasses import dataclass
 
 
@@ -217,11 +218,58 @@ AUTH_REJECTED = _spec(
 )
 
 
+# The vendor documentation contradicts itself on this endpoint: the endpoint table
+# lists `GET /api/invoices/status/{serialNumber}`, the section body then says
+# "Method: POST" one line under "This endpoint sends a GET request". GET is what
+# the live service answers, so GET is what we send -- but a build that disagrees
+# should say so in one line rather than arrive as an unrecognised device error.
+ENDPOINT_NOT_FOUND = _spec(
+	"NO_ENDPOINT",
+	"The service does not have that endpoint",
+	"ComstoreApiService answered but does not serve this path or does not accept "
+	"this HTTP method. Check the service version against the app's expectations, "
+	"and compare the path with http://<device host>:4000/swagger.",
+	retryable=False,
+	blocking=True,
+)
+
+
 UNKNOWN = _spec(
 	"UNKNOWN",
 	"Unrecognised device error",
 	"The device rejected the payload with a code this app does not know. Check "
 	"ComstoreFC4Api.log on the device host.",
+)
+
+# The service's own failure codes are negative and are not judgements on the
+# payload: the doc's worked example is `"error_code": -1, "error_message": "Error
+# Code -1"` on a manual upload that simply did not start. The same shape carries
+# -99 out of the invoice-status endpoint when the service cannot read from the
+# FC4 device. Nothing about those bytes was found wanting, so parking them as
+# Blocked is wrong -- they are device-state faults and belong in the retry path.
+DEVICE_FAULT = _spec(
+	"DEVICE_FAULT",
+	"The service could not complete the operation on the device",
+	"ComstoreApiService answered but could not carry out the request against the "
+	"fiscal device -- typically the FC4 link dropped, the device is busy, or it is "
+	"mid-reboot. Check the device is powered on and connected, then let the retry "
+	"run. If it persists, use Initialise Device and check ComstoreFC4Api.log.",
+	retryable=True,
+	blocking=False,
+)
+
+# "Duplicate invoice prevention is mandatory and cannot be disabled" (doc, p. 44).
+# Reaching this means the device has already seen this TraderSystemInvoiceNumber,
+# so a signature for this sale very probably exists -- which makes it the one
+# rejection where allocating a fresh number would be actively dangerous.
+DUPLICATE_INVOICE = _spec(
+	"DUPLICATE",
+	"The device has already signed this invoice number",
+	"The device rejected this as a duplicate of a TraderSystemInvoiceNumber it has "
+	"already fiscalised, which means the sale is very likely already declared to "
+	"KRA. Check the earlier attempts on this Transmission and the device's signed "
+	"log for that number before doing anything else. Do NOT issue a new number to "
+	"get past this -- that declares the same sale to KRA twice.",
 )
 
 
@@ -247,29 +295,150 @@ class ComstoreError(Exception):
 		return self.spec.blocking
 
 
-# eTIMS codes appear in free text ("E337: NO FIND PLU DATA", "Error Code -1"), so
-# the code has to be recovered from the message rather than read from a field.
-def classify(message):
+# The same fault reaches us spelled three different ways depending on which layer
+# of the stack is talking, and only one of them carries the "E" prefix:
+#
+#   "E337: NO FIND PLU DATA"                                    the doc's heading
+#   "Signature generation failed: NO FIND PLU DATA (Code 337)"  complete-workflow
+#   unsigned/20250730/status_325/...                            the device's own log
+#
+# Matching on the prefixed form alone is what reported a plain missing-item error
+# as "unrecognised" and sent operators to read a device log that said exactly what
+# we had already been told. So a code is recovered three ways -- prefixed, bare in
+# a code context, and by the documented phrase -- and any of them is enough.
+
+_E_CODE = re.compile(r"\bE(\d{3})\b")
+
+# A bare number only counts as a code when something says it is one. Without that
+# guard, a TraderSystemInvoiceNumber like 1000000341 in the message text reads as
+# E341 and the invoice is parked with a remedy for a defect it does not have.
+_BARE_CODE = re.compile(r"(?:ERROR[\s_]*CODE|STATUS[\s_]*|\bCODE)\s*[:=#]?\s*(-?\d{1,4})\b")
+
+# The phrases the vendor documentation prints beside each code, upper-cased. The
+# device does not always send the code, but it does always send the phrase.
+_PHRASES = (
+	("NO FIND PLU DATA", "E337"),
+	("PLU SALES SUM ERROR", "E341"),
+	("PINOFSHOP IS ERROR", "E325"),
+	("PIN OF SHOP IS ERROR", "E325"),
+	("PINOFBUYER IS ERROR", "E358"),
+	("PIN OF BUYER IS ERROR", "E358"),
+	("INSUFFICIENT STOCK", "E090"),
+	("TAX EXCEEDS THE ORIGINAL", "E218"),
+	("PRICE EXCEEDS THE ORIGINAL", "E219"),
+	("QUANTITY EXCEEDS THE ORIGINAL", "E220"),
+	("ALREADY CREDITED", "E221"),
+	("INVOICECATEGORY IS INVALID", "E315"),
+	("INVOICECATEGORY IS ERROR", "E312"),
+	("RELEVANTINVOICENUMBER IS ERROR", "E313"),
+	("RECEIPTNO IS ERROR", "E314"),
+	("TAXRATE IS ERROR", "E321"),
+	("TAX RATE IS ERROR", "E321"),
+	("SALEAMOUNT IS ERROR", "E322"),
+	("SALE AMOUNT IS ERROR", "E322"),
+	("CREDIT EXCEEDS THE AMOUNT", "E335"),
+	("THE SAME NAME", "E353"),
+	("INPUT DATA ERROR", "E034"),
+	# The doc lists these two under E034 explicitly: all three come from non-ASCII
+	# characters in item data, and all three have the same remedy.
+	("EXTERNAL COMPONENT HAS THROWN AN EXCEPTION", "E034"),
+	("SETPLUDATAINFOEX FAILED", "E034"),
+)
+
+# Duplicate detection is a distinct rejection with a distinct danger, so it is
+# matched before anything else can claim the message.
+_DUPLICATE_MARKERS = ("DUPLICATE", "ALREADY EXISTS", "ALREADY SIGNED", "ALREADY PROCESSED")
+
+_DISCONNECTED_MARKERS = (
+	"DEVICE NOT INITIALIZED",
+	"DEVICE NOT INITIALISED",
+	"NOT CONNECTED",
+	"DEVICE DISCONNECTED",
+	"CONNECTION LOST",
+	"FAILED TO CONNECT",
+)
+
+
+def _codes_in(text):
+	"""Every eTIMS code the message names, prefixed or bare, in the order found."""
+	found = []
+	for match in _E_CODE.finditer(text):
+		found.append(("E" + match.group(1), int(match.group(1))))
+	for match in _BARE_CODE.finditer(text):
+		number = int(match.group(1))
+		found.append(("E%03d" % number if number >= 0 else "", number))
+	return found
+
+
+def classify(message, error_code=None):
 	"""
-	Maps a device message onto its ErrorSpec. Falls back to UNKNOWN, which is
-	non-retryable and blocking: an error we cannot read is not one we should
-	silently hammer the device with.
+	Map a device message onto its ErrorSpec.
+
+	``error_code`` is the reply's own ``error_code``/``ErrorCode`` field where the
+	endpoint supplies one. It is consulted alongside the message rather than
+	instead of it, because complete-workflow rejections carry the code only inside
+	the prose while the status endpoints carry it only in the field.
+
+	Falls back to UNKNOWN, which is non-retryable and blocking: an error we cannot
+	read is not one we should silently hammer the device with.
 	"""
 	text = (message or "").upper()
+	if error_code not in (None, ""):
+		text = f"{text} | ERROR CODE {error_code}"
+
+	# A duplicate is the one rejection where guessing wrong is expensive, so it is
+	# resolved before any code lookup that might shadow it.
+	if any(marker in text for marker in _DUPLICATE_MARKERS):
+		return DUPLICATE_INVOICE
 
 	# A documented eTIMS code is a judgement on the payload and always wins: the
 	# device rejected these bytes and will reject them again.
-	for code, spec in ERROR_CODES.items():
-		if code in text:
-			return spec
+	numbers = _codes_in(text)
+	for code, _number in numbers:
+		if code in ERROR_CODES:
+			return ERROR_CODES[code]
 
-	# No code, but the service is telling us it has no device to talk to. That is a
-	# state fault, not a payload fault, so the identical payload may well succeed
-	# once the link is back.
-	if any(phrase in text for phrase in ("DEVICE NOT INITIALIZED", "NOT CONNECTED", "DEVICE DISCONNECTED")):
+	# No code we know, but the documented phrase for one. The device sends the
+	# phrase far more reliably than it sends the code.
+	for phrase, code in _PHRASES:
+		if phrase in text:
+			return ERROR_CODES[code]
+
+	# The service is telling us it has no device to talk to. That is a state
+	# fault, not a payload fault, so the identical payload may well succeed once
+	# the link is back.
+	if any(phrase in text for phrase in _DISCONNECTED_MARKERS):
 		return DEVICE_DISCONNECTED
 
+	# A negative code is the service's own "I could not do it", never a verdict on
+	# the payload -- so it is retried rather than parked.
+	if any(number < 0 for _code, number in numbers):
+		return DEVICE_FAULT
+
 	return UNKNOWN
+
+
+def describe(error):
+	"""
+	One error as a plain dict, for an API reply or a desk message.
+
+	``str(e)`` alone is what produced ``"UNKNOWN: Unrecognised device error -
+	Failed to read invoice status from device | Error Code -99 | -99"`` in a
+	success-coloured dialog: a caller cannot tell from a string whether the fault
+	is worth retrying, and a UI cannot colour it.
+	"""
+	spec = getattr(error, "spec", error)
+	described = {
+		"code": spec.code,
+		"summary": spec.summary,
+		"remedy": spec.remedy,
+		"retryable": spec.retryable,
+		"blocking": spec.blocking,
+	}
+	if isinstance(error, ComstoreError):
+		described["detail"] = error.detail
+		described["response"] = error.response
+	return described
 
 
 # Markers that identify a CDN challenge page. Matched against the body and the
@@ -358,6 +527,11 @@ def classify_http(status, body, headers=None, data=None):
 
 	if status in (401, 403) and via_cdn:
 		return EDGE_CHALLENGE
+
+	# A path or method the service does not serve. Named rather than left to
+	# UNKNOWN, whose remedy points at a device log that will have nothing in it.
+	if status in (404, 405):
+		return ENDPOINT_NOT_FOUND
 
 	if status >= 500:
 		return TRANSPORT

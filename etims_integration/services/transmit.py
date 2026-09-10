@@ -15,7 +15,7 @@ import frappe
 from frappe import _
 from frappe.model.naming import getseries
 from frappe.utils import cint, now_datetime
-from frappe.utils.synchronization import filelock
+from frappe.utils.synchronization import LockTimeoutError, filelock
 
 from etims_integration.comstore.errors import ComstoreError
 from etims_integration.etims_integration.doctype.etims_device.etims_device import resolve_device
@@ -69,7 +69,12 @@ def queue_invoice(doc, settings=None):
 	)
 	if existing:
 		# Never fiscalise the same invoice twice. Re-submitting after an amend gets
-		# the existing record, in whatever state it reached.
+		# the existing record, in whatever state it reached -- and the invoice is
+		# re-pointed at it, because an invoice whose transmission link is blank
+		# looks exactly like one that was never queued.
+		if doc.get("custom_etims_transmission") != existing.name:
+			doc.db_set("custom_etims_transmission", existing.name, update_modified=False)
+			doc.db_set("custom_etims_status", existing.status, update_modified=False)
 		return existing.name
 
 	device_name = resolve_device(doc.company, doc.get("custom_etims_branch"))
@@ -167,9 +172,17 @@ def send_transmission(transmission, timeout=None):
 	"""
 	Send one Transmission. Safe to call twice: the file lock and the state check
 	together mean only one worker can be in flight for a given record.
+
+	Losing the race for the lock is a success, not a failure -- the other worker
+	is doing exactly this job. Letting the timeout escape marked the job failed in
+	the queue and buried a real fault among retries of a duplicate enqueue, which
+	both scheduler paths can produce.
 	"""
-	with filelock(f"etims-transmission-{transmission}", timeout=5):
-		_send(transmission, timeout=timeout)
+	try:
+		with filelock(f"etims-transmission-{transmission}", timeout=5):
+			return _send(transmission, timeout=timeout)
+	except LockTimeoutError:
+		return frappe.db.get_value("ETIMS Transmission", transmission, "status")
 
 
 def _send(name, timeout=None):
@@ -205,6 +218,14 @@ def _send(name, timeout=None):
 		mapped = invoice_mapping.build(invoice, device, settings, transmission.trader_invoice_no)
 	except Exception as e:
 		frappe.log_error(title="eTIMS: could not build payload", message=frappe.get_traceback())
+		# Recorded like any other outcome. A build that never produced bytes is
+		# still an answer to "what happened on attempt 3?", and leaving it out of
+		# the log is what makes an invoice look as though nothing was tried.
+		response_log.record(
+			transmission,
+			response_log.OUTCOME_ERROR,
+			message=_("The payload could not be built: {0}").format(e),
+		)
 		return transmission.mark_blocked(
 			_("The payload could not be built."), remedy=str(e), detail=frappe.get_traceback()
 		)
@@ -270,7 +291,8 @@ def _send(name, timeout=None):
 				code=e.spec.code,
 				request_payload=e.payload or mapped.as_payload(),
 			)
-			invoice.db_set("custom_etims_status", "Blocked", update_modified=False)
+		# mark_failed and mark_blocked both mirror onto the invoice themselves now,
+		# so there is one place that decides what the invoice says.
 		return transmission.status
 	except Exception:
 		frappe.log_error(title="eTIMS: unexpected send failure", message=frappe.get_traceback())
@@ -391,15 +413,68 @@ def send_now(invoice):
 		frappe.throw(_("Only a submitted invoice can be sent to eTIMS."))
 
 	settings = frappe.get_cached_doc("ETIMS Settings")
-	name = frappe.db.get_value(
-		"ETIMS Transmission", {"sales_invoice": invoice, "status": ("not in", ("Cancelled",))}, "name"
+	existing = frappe.db.get_value(
+		"ETIMS Transmission",
+		{"sales_invoice": invoice, "status": ("not in", ("Cancelled",))},
+		["name", "status"],
+		as_dict=True,
 	)
-	if not name:
+
+	if not existing:
 		name = queue_invoice(doc, settings)
 		if not name:
 			return {"queued": False}
-	else:
-		frappe.db.set_value("ETIMS Transmission", name, "status", "Queued", update_modified=True)
-		frappe.enqueue(send_transmission, queue="short", transmission=name, enqueue_after_commit=True)
+		return {"queued": True, "transmission": name}
 
-	return {"queued": True, "transmission": name}
+	# A signed transmission is finished. Re-queuing one used to leave it reading
+	# "Queued" forever -- _send returns early on Signed without putting the status
+	# back -- and, worse, invited a second declaration of a sale KRA has already
+	# accepted. The compliant reversal of a signed invoice is a credit note.
+	if existing.status == "Signed":
+		frappe.throw(
+			_("{0} is already fiscalised (transmission {1}). Issue a credit note to reverse it.").format(
+				invoice, existing.name
+			),
+			title=_("Already Declared to KRA"),
+		)
+
+	# requeue() rather than a bare status write: it also resets the retry budget
+	# and clears the stale error, which is what the operator pressing this button
+	# is asking for.
+	frappe.get_doc("ETIMS Transmission", existing.name).requeue()
+	return {"queued": True, "transmission": existing.name}
+
+
+@frappe.whitelist()
+def retry_blocked(device=None, company=None, limit=200):
+	"""
+	Resend every ``Blocked`` transmission, optionally narrowed to one device or
+	company.
+
+	``Blocked`` is deliberately never retried on a timer -- the device is
+	deterministic and would reject the same bytes the same way. But the causes are
+	overwhelmingly *shared*: one unregistered item, one wrong tax mapping, one
+	device that was offline all morning. Once the operator has fixed that one
+	thing, the fix applies to every invoice it blocked, and there was no way to
+	act on that other than opening them one at a time.
+
+	This stays an explicit, human-triggered action for exactly the reason the
+	scheduler does not do it: somebody has to vouch that the cause is fixed.
+	"""
+	frappe.has_permission("ETIMS Transmission", "write", throw=True)
+
+	filters = {"status": "Blocked"}
+	if device:
+		filters["device"] = device
+	if company:
+		filters["company"] = company
+
+	names = frappe.get_all(
+		"ETIMS Transmission", filters=filters, pluck="name", limit=cint(limit) or 200, order_by="creation asc"
+	)
+
+	from etims_integration.etims_integration.doctype.etims_transmission.etims_transmission import (
+		retry_transmissions,
+	)
+
+	return retry_transmissions(names)

@@ -32,10 +32,22 @@ holds by construction. That makes E341 and E322 structurally unreachable rather
 than merely unlikely. VAT is computed from the rate and any leftover cent is
 pushed into the levy, which reproduces KRA's own worked examples exactly.
 
-**Retry only what retrying can fix.** Transport faults retry with exponential
-backoff. A payload the device *rejected* is parked as `Blocked` with the operator
-remedy attached — the device is deterministic, so re-sending identical bytes just
-earns an identical rejection.
+**Retry only what retrying can fix.** Transport faults, a dropped FC4 link and the
+service's own negative failure codes retry with exponential backoff. A payload the
+device *rejected* is parked as `Blocked` with the operator remedy attached — the
+device is deterministic, so re-sending identical bytes just earns an identical
+rejection. Fixing the cause and pressing **Retry** restores a full retry budget;
+without that a resend got one attempt and fell straight back into `Blocked`.
+
+**A fault is read three ways, because it is spelled three ways.** The vendor's
+headings say `E337`, complete-workflow says `NO FIND PLU DATA (Code 337)` inside a
+sentence, and the status endpoints put a bare `-99` in a field. All three resolve to
+the same `ErrorSpec`. A bare number only counts as a code where something says it is
+one, so a trader invoice number ending 341 is not read as E341.
+
+**The invoice always says what its Transmission says.** Every state change mirrors
+onto the Sales Invoice, not just a signature. An invoice reading `Queued` while its
+Transmission is `Blocked` is the one failure mode nobody investigates.
 
 ## Layers
 
@@ -79,7 +91,12 @@ the print format all say so explicitly.
 
 ## Operating it
 
-- **eTIMS workspace** → Transmissions, filtered by status.
+- **eTIMS workspace** → Transmissions, filtered by status. Select rows in the list
+  and use *Retry Selected*, or **Retry Blocked Transmissions** on the device — one
+  unregistered item or one offline morning blocks many invoices at once, and the fix
+  is almost always shared.
+- **Transmission → Device Exchanges** lists every attempt. The Transmission carries
+  only the latest one; each retry overwrites its response.
 - **Reconciliation** runs hourly: it reads each device's backlog of invoices KRA
   has not acknowledged, forces an upload when the backlog stops shrinking, and
   raises an alert if it does not recover. A signature is not compliance — the
@@ -103,6 +120,24 @@ cd ~/frappe-bench
 These cover the tax decomposition against every worked example in the vendor
 documentation, plus a property check that the parts always re-add to the total
 across awkward amounts, rates and levies.
+
+## Known divergences from the vendor documentation
+
+Checked against Comstore API Documentation 3.4.2 and kept here so the next reader
+does not re-derive them:
+
+- **`GET /api/invoices/status/{sn}`.** The endpoint table (p. 4) says GET; the
+  section body (p. 30) says "Method: POST" one line below "This endpoint sends a GET
+  request". The live service answers GET, so GET is what is sent. A build that
+  disagrees now reports `NO_ENDPOINT` rather than an unrecognised device error.
+- **`DiscAmt` in `sign_structure`.** Absent from the parameter table, present in both
+  of the vendor's own Postman examples, so it is sent — an undocumented field the
+  vendor always sends is likelier to be expected than ignored.
+- **Negative `error_code` values.** Only `-1` is shown (p. 31). `-99` is real and
+  comes out of the invoice-status endpoint. Both are treated as service faults, not
+  payload rejections, so they retry.
+- **`transmit_status`** appears in live complete-workflow replies and in no version
+  of the document. It is captured in `response_json` and read by nothing.
 
 ## Reference
 

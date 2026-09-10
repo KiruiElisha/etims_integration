@@ -33,11 +33,40 @@ function show_status(frm) {
 		return;
 	}
 
-	const colours = { Signed: "green", Queued: "blue", Failed: "orange", Blocked: "red" };
+	const colours = {
+		Signed: "green",
+		Queued: "blue",
+		Sending: "blue",
+		Failed: "orange",
+		Blocked: "red",
+		Cancelled: "gray",
+	};
 	frm.dashboard.add_indicator(__("eTIMS: {0}", [status]), colours[status] || "gray");
 
 	// A test-mode signature is indistinguishable from a real one on the form.
 	// Say plainly that KRA never saw it, so nobody files it as a declared sale.
+	// The remedy lives on the Transmission, which is one click away and therefore
+	// one click too many for the status people actually need to act on.
+	if (["Blocked", "Failed"].includes(status) && frm.doc.custom_etims_transmission) {
+		frappe.db
+			.get_value("ETIMS Transmission", frm.doc.custom_etims_transmission, [
+				"error_summary",
+				"remedy",
+			])
+			.then((r) => {
+				const tx = (r && r.message) || {};
+				if (!tx.error_summary && !tx.remedy) {
+					return;
+				}
+				frm.dashboard.add_comment(
+					`<b>${frappe.utils.escape_html(tx.error_summary || "")}</b>` +
+						(tx.remedy ? `<br>${frappe.utils.escape_html(tx.remedy)}` : ""),
+					status === "Blocked" ? "red" : "orange",
+					true
+				);
+			});
+	}
+
 	if (frm.doc.custom_etims_is_test) {
 		frm.dashboard.add_comment(
 			__("Signed in test mode. This invoice was NOT transmitted to KRA."),

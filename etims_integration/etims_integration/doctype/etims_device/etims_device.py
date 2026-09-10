@@ -7,7 +7,7 @@ from frappe.model.document import Document
 from frappe.utils import now_datetime
 
 from etims_integration.comstore.client import ComstoreClient, normalise_base_url
-from etims_integration.comstore.errors import ComstoreError
+from etims_integration.comstore.errors import DEVICE_DISCONNECTED, ComstoreError, describe
 from etims_integration.mapping.sanitize import clean_pin
 
 
@@ -62,31 +62,46 @@ class ETIMSDevice(Document):
 		"""
 		self.check_permission("write")
 		client = self.get_client()
-		result = {"base_url": self.base_url}
+		result = {"base_url": self.base_url, "ok": True, "checks": {}}
 
 		try:
 			health = client.health()
 			result["health"] = health
+			result["checks"]["health"] = "ok"
+			connection = (health.get("deviceConnection") or "").strip()
 			self.db_set(
 				{
-					"connection_status": health.get("deviceConnection") or health.get("status") or "Unknown",
+					"connection_status": connection or health.get("status") or "Unknown",
 					"service_version": health.get("version") or "",
 					"last_health_check": now_datetime(),
 				},
 				update_modified=False,
 			)
+			# /api/health answers 200 with apiService "Running" while the service's
+			# link to the fiscal device is down -- that is a documented reply, not an
+			# error, and reporting it as a clean pass is how a device that cannot
+			# sign anything shows up green.
+			if connection and connection.lower() != "connected":
+				result["ok"] = False
+				result["checks"]["health"] = "device disconnected"
+				result["error"] = describe(DEVICE_DISCONNECTED)
 		except ComstoreError as e:
 			self.db_set(
 				{"connection_status": f"Error: {e.spec.summary}", "last_health_check": now_datetime()},
 				update_modified=False,
 			)
-			result["error"] = str(e)
-			result["remedy"] = e.spec.remedy
+			result["ok"] = False
+			result["checks"]["health"] = "failed"
+			result["error"] = describe(e)
 			return result
 
+		# /api/health is unauthenticated and answers 200 to a wrong key or none at
+		# all, so a green health check proves nothing about the API key. This is the
+		# only check that does.
 		try:
 			status = client.invoice_status()
 			result["invoice_status"] = status
+			result["checks"]["invoice_status"] = "ok"
 			self.db_set(
 				{
 					"invoices_on_device": status["on_device"],
@@ -97,9 +112,13 @@ class ETIMSDevice(Document):
 				update_modified=False,
 			)
 		except ComstoreError as e:
-			# A device that answers /health but not /invoices/status is still usable
-			# for signing, so this is reported and not treated as a failure.
-			result["invoice_status_error"] = str(e)
+			# A device that answers /health but not /invoices/status can often still
+			# sign, so this does not fail the whole test -- but it is a real fault
+			# with a real remedy, and returning str(e) gave the desk a sentence it
+			# could neither colour nor act on. It goes back classified.
+			result["ok"] = False
+			result["checks"]["invoice_status"] = "failed"
+			result["invoice_status_error"] = describe(e)
 
 		return result
 

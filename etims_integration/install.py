@@ -21,7 +21,10 @@ REFUND_REASONS = (
 # a quantity. The distinction is ours, and it decides how the payload is encoded.
 ADJUSTMENT_TYPES = "\nGoods Return\nPrice Adjustment"
 
-ETIMS_STATUSES = "\nNot Sent\nQueued\nSigned\nFailed\nBlocked"
+# Mirrors ETIMS Transmission.status one-for-one. Anything the Transmission can
+# be, the invoice must be able to say it is -- a status the invoice cannot hold
+# is a status that silently fails to mirror and leaves the two disagreeing.
+ETIMS_STATUSES = "\nNot Sent\nQueued\nSending\nSigned\nFailed\nBlocked\nCancelled"
 
 
 CUSTOM_FIELDS = {

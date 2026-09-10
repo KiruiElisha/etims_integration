@@ -14,7 +14,15 @@ doctype_js = {
 	"ETIMS Device": "public/js/etims_device.js",
 }
 
-doctype_list_js = {"Item": "public/js/item_list.js"}
+doctype_list_js = {
+	"Item": "public/js/item_list.js",
+	"ETIMS Transmission": "public/js/etims_transmission_list.js",
+}
+
+# Both eTIMS records point at the invoice, so the invoice should point back.
+override_doctype_dashboards = {
+	"Sales Invoice": "etims_integration.overrides.sales_invoice_dashboard.get_data",
+}
 
 add_to_apps_screen = [
 	{
