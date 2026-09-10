@@ -168,6 +168,55 @@ DEVICE_DISCONNECTED = _spec(
 	blocking=False,
 )
 
+# Faults that happen *in front of* the device. Naming these separately matters:
+# the generic "unrecognised device error" sends an operator to
+# ComstoreFC4Api.log, and in every case below the device never saw the request
+# and its log will be silent.
+
+ORIGIN_UNREACHABLE = _spec(
+	"ORIGIN_DOWN",
+	"Device host unreachable behind its proxy",
+	"A CDN or reverse proxy answered, but it could not reach the machine running "
+	"ComstoreApiService (Cloudflare 52x/530 means the tunnel or origin is down). "
+	"Check that the service and any tunnel client are running on the device host.",
+	retryable=True,
+	blocking=False,
+)
+
+EDGE_CHALLENGE = _spec(
+	"EDGE_CHALLENGE",
+	"Blocked by a bot challenge in front of the device",
+	"A CDN (Cloudflare) is serving a browser challenge instead of passing the "
+	"request to the device. An API client cannot answer a challenge that requires "
+	"a browser. Ask whoever hosts the endpoint to exempt the API path from bot "
+	"protection, or to allow this server's IP - or connect to the device directly "
+	"on the LAN rather than through the proxy.",
+	retryable=False,
+	blocking=True,
+)
+
+NOT_THE_API = _spec(
+	"NOT_API",
+	"Endpoint did not return JSON",
+	"Something other than the Comstore service answered - an HTML page came back "
+	"where JSON was expected. Check the host and port point at ComstoreApiService "
+	"and not at a web server, login page or proxy.",
+	retryable=False,
+	blocking=True,
+)
+
+AUTH_REJECTED = _spec(
+	"AUTH_REJECTED",
+	"API key rejected",
+	"ComstoreApiService answered, but refused the X-API-KEY header. Check the API "
+	"Key on the eTIMS Device against the one issued for this host. Note that a "
+	"green health check proves nothing here: /api/health is unauthenticated and "
+	"answers 200 to a wrong key, or to no key at all.",
+	retryable=False,
+	blocking=True,
+)
+
+
 UNKNOWN = _spec(
 	"UNKNOWN",
 	"Unrecognised device error",
@@ -221,3 +270,131 @@ def classify(message):
 		return DEVICE_DISCONNECTED
 
 	return UNKNOWN
+
+
+# Markers that identify a CDN challenge page. Matched against the body and the
+# response headers, because the status code alone does not distinguish "the
+# device said no" from "the device was never asked".
+_CHALLENGE_MARKERS = (
+	"JUST A MOMENT",
+	"CHALLENGES.CLOUDFLARE.COM",
+	"CF-CHALLENGE",
+	"ATTENTION REQUIRED",
+	"CHECKING YOUR BROWSER",
+	"ENABLE JAVASCRIPT AND COOKIES",
+	"DDOS-GUARD",
+)
+
+
+# Keys that only a CDN error document carries. Cloudflare's problem+json shares
+# `error_code` with the Comstore schema, so the presence of an error code proves
+# nothing -- these do.
+CDN_JSON_KEYS = frozenset({"cloudflare_error", "ray_id", "error_name", "error_category", "zone"})
+
+
+def looks_like_cdn(data):
+	"""True when a parsed JSON body came from a CDN rather than the device."""
+	return isinstance(data, dict) and bool(CDN_JSON_KEYS & set(data))
+
+
+# The service's own auth refusal is a compact JSON document naming the header it
+# wanted. It has to be told apart from a CDN challenge: both arrive as a 401 from
+# behind Cloudflare, and their remedies are opposite -- one is a wrong key in our
+# own settings, the other a WAF rule only the endpoint's host can change.
+_AUTH_MARKERS = ("X-API-KEY", "API KEY", "APIKEY", "INVALID KEY", "UNAUTHORIZED")
+
+
+def looks_like_auth_rejection(status, data, text):
+	"""True when a 401/403 carries the API's own "bad key" JSON rather than a challenge."""
+	if status not in (401, 403):
+		return False
+
+	# A challenge page is HTML and never parses to a dict, so requiring one is what
+	# keeps this from swallowing the CDN case.
+	if not isinstance(data, dict) or looks_like_cdn(data):
+		return False
+
+	return any(marker in text for marker in _AUTH_MARKERS)
+
+
+def classify_http(status, body, headers=None, data=None):
+	"""
+	Classify a reply that was not usable JSON, using the status, the body and the
+	response headers together.
+
+	Ordered most specific first: a Cloudflare 530 and a Cloudflare challenge are
+	both "not the device", but they need opposite handling -- one is worth
+	retrying, the other will repeat forever until a human changes a WAF rule.
+	"""
+	text = (body or "").upper()
+	headers = {str(k).lower(): str(v) for k, v in (headers or {}).items()}
+	via_cdn = (
+		"cloudflare" in headers.get("server", "").lower()
+		or "cf-ray" in headers
+		or looks_like_cdn(data)
+	)
+
+	# A CDN error document names its own fault far better than any guess from the
+	# status code, so trust it when it is there.
+	if looks_like_cdn(data):
+		name = str(data.get("error_name") or "").lower()
+		if "tunnel" in name or "origin" in name or "unreachable" in name:
+			return ORIGIN_UNREACHABLE
+		if "challenge" in name or "captcha" in name or "block" in name:
+			return EDGE_CHALLENGE
+
+	# Must beat the 401-behind-a-CDN rule below. This endpoint is always behind
+	# Cloudflare, so that rule on its own reports every wrong key as a bot
+	# challenge and sends an operator to argue with their host about WAF rules.
+	if looks_like_auth_rejection(status, data, text):
+		return AUTH_REJECTED
+
+	# 52x/530 are Cloudflare's "I could not reach the origin" family.
+	if status in (521, 522, 523, 524, 525, 526, 530) or (via_cdn and status >= 520):
+		return ORIGIN_UNREACHABLE
+
+	if "cf-mitigated" in headers or any(marker in text for marker in _CHALLENGE_MARKERS):
+		return EDGE_CHALLENGE
+
+	if status in (401, 403) and via_cdn:
+		return EDGE_CHALLENGE
+
+	if status >= 500:
+		return TRANSPORT
+
+	# Any other HTML body: something answered, but not the API.
+	if "<HTML" in text or "<!DOCTYPE" in text:
+		return NOT_THE_API
+
+	return UNKNOWN
+
+
+def summarise_body(body, limit=300, data=None):
+	"""
+	A short, readable account of a non-JSON body.
+
+	An error carrying 800 characters of Cloudflare markup buries the one useful
+	fact in noise, so an HTML page is reduced to its <title>.
+	"""
+	# A CDN problem document explains itself in prose; use it rather than dumping
+	# the raw JSON.
+	if looks_like_cdn(data):
+		parts = [str(data.get("title") or "").strip(), str(data.get("detail") or "").strip()]
+		summary = " - ".join(p for p in parts if p)
+		if summary:
+			return summary[:limit]
+
+	text = (body or "").strip()
+	if not text:
+		return "empty response"
+
+	upper = text.upper()
+	if "<HTML" in upper or "<!DOCTYPE" in upper:
+		start = upper.find("<TITLE>")
+		if start != -1:
+			end = upper.find("</TITLE>", start)
+			if end != -1:
+				return "HTML page: " + text[start + 7 : end].strip()
+		return "HTML page (no title)"
+
+	return text[:limit]

@@ -12,11 +12,40 @@ import json
 
 import requests
 
-from etims_integration.comstore.errors import TRANSPORT, UNKNOWN, ComstoreError, classify
+from etims_integration.comstore.errors import (
+	AUTH_REJECTED,
+	TRANSPORT,
+	ComstoreError,
+	classify,
+	classify_http,
+	looks_like_cdn,
+	summarise_body,
+)
 from etims_integration.comstore.schema import Buyer, PLUItem, PLULine, SignStructure, WorkflowResult
 
 DEFAULT_PORT = 4000
 DEFAULT_TIMEOUT = 45
+
+# Identify ourselves. Some proxies reject or challenge a request carrying a bare
+# HTTP-library user agent, and when something does go wrong upstream this is what
+# tells the host's logs who was calling.
+USER_AGENT = "ETIMSIntegration/1.0 (+https://github.com/KiruiElisha/etims_integration)"
+
+
+# Suffixes that mean "this name is on the LAN", where a device port is meaningful.
+_LAN_SUFFIXES = (".local", ".internal", ".lan", ".home", ".arpa")
+
+
+def is_public_domain(hostname):
+	"""
+	True for a name that resolves on the public internet (``hedgeinc.co.ke``) and
+	False for anything naming a machine on the LAN. A single-label name
+	(``desktop-7f2``) is a LAN name, and so is anything under a LAN suffix.
+	"""
+	hostname = (hostname or "").lower()
+	if "." not in hostname:
+		return False
+	return not hostname.endswith(_LAN_SUFFIXES)
 
 
 def normalise_base_url(host, port=None, use_https=False):
@@ -25,9 +54,11 @@ def normalise_base_url(host, port=None, use_https=False):
 	``localhost:4000``, ``hedgeinc.co.ke``, ``http://host:4000/`` -- and returns a
 	base URL with no trailing slash.
 
-	A port already present in the host wins over the ``port`` argument, so pasting
-	a full URL does the obvious thing. A named host with no port is left alone: the
-	shared test service answers on 80/443, and forcing :4000 onto it would break it.
+	The ``port`` argument is only ever applied to a LAN address, which is where a
+	Comstore device actually lives. A public domain is assumed to answer on 80/443
+	and has any port stripped, including one typed into the field: 4000 is
+	firewalled on the hosted service, so carrying it over turns a working endpoint
+	into a 20-second timeout. Pass a full URL with a scheme to override that.
 	"""
 	host = (host or "").strip().rstrip("/")
 	if not host:
@@ -37,12 +68,17 @@ def normalise_base_url(host, port=None, use_https=False):
 		return host
 
 	scheme = "https" if use_https else "http"
-	has_port = ":" in host.rsplit("/", 1)[0]
-	looks_like_ip = host.split("/")[0].replace(".", "").isdigit()
-	is_local = host.split(":")[0] in ("localhost", "127.0.0.1")
+	authority = host.split("/", 1)[0]
+	hostname = authority.split(":")[0]
+	has_port = ":" in authority
+	looks_like_ip = authority.replace(".", "").replace(":", "").isdigit()
+	is_local = hostname in ("localhost", "127.0.0.1")
 
 	if not has_port and port and (looks_like_ip or is_local):
 		host = f"{host}:{int(port)}"
+	elif has_port and not looks_like_ip and not is_local and is_public_domain(hostname):
+		# Keep whatever path was typed; drop only the port.
+		host = hostname + host[len(authority) :]
 
 	return f"{scheme}://{host}"
 
@@ -58,7 +94,11 @@ class ComstoreClient:
 	# ------------------------------------------------------------------ plumbing
 
 	def _headers(self):
-		headers = {"Content-Type": "application/json", "Accept": "application/json"}
+		headers = {
+			"Content-Type": "application/json",
+			"Accept": "application/json",
+			"User-Agent": USER_AGENT,
+		}
 		if self.api_key:
 			headers["X-API-KEY"] = self.api_key
 		return headers
@@ -82,34 +122,70 @@ class ComstoreClient:
 
 	def _parse(self, response, url, payload):
 		"""
-		The service answers JSON when it is healthy and can answer HTML or an empty
-		body when it is not. Always end up with a dict, so the exchange is still
-		recordable and the operator sees the real body rather than a parse error.
+		Turn a reply into the device's JSON, or into a classified error.
+
+		The awkward case is that a CDN in front of the device answers with
+		perfectly valid JSON of its own -- Cloudflare returns an RFC-7807
+		``problem+json`` document for its 5xx and challenge pages. Parsing
+		successfully therefore proves nothing about *who* answered, so an error
+		status is classified from the whole reply and the device's own semantics
+		are used only when the body actually looks like the device talking.
 		"""
 		body = (response.text or "").strip()
+
 		try:
 			data = json.loads(body)
 		except ValueError:
+			data = None
+
+		if data is not None and not isinstance(data, dict):
+			data = None
+
+		# A CDN document can be valid JSON and can even share key names with the
+		# device, so it is ruled out explicitly rather than by absence of evidence.
+		from_device = (
+			data is not None and not looks_like_cdn(data) and self._looks_like_device_reply(data)
+		)
+
+		if response.status_code >= 400 or data is None:
+			if from_device:
+				# The device itself rejected this. Its message carries the E-code.
+				message = self._message(data)
+				raise ComstoreError(classify(message), message, payload=payload, response=data)
+
+			# Something in front of the device answered, or nothing usable did.
 			raise ComstoreError(
-				TRANSPORT if response.status_code >= 500 else UNKNOWN,
-				f"HTTP {response.status_code} from {url}: {body[:800] or 'empty response'}",
+				classify_http(response.status_code, body, response.headers, data),
+				f"HTTP {response.status_code} from {url}: {summarise_body(body, data=data)}",
 				payload=payload,
-			) from None
-
-		if not isinstance(data, dict):
-			raise ComstoreError(UNKNOWN, f"Unexpected response from {url}: {str(data)[:800]}", payload=payload)
-
-		if response.status_code >= 500:
-			raise ComstoreError(TRANSPORT, f"HTTP {response.status_code}: {self._message(data)}", payload=payload, response=data)
+				response={"http_status": response.status_code, "body": body[:4000]},
+			)
 
 		# Casing is inconsistent across endpoints: complete-workflow answers
 		# "success", the buyer endpoints answer "Success".
-		success = data.get("success", data.get("Success"))
-		if success is False or response.status_code >= 400:
+		if data.get("success", data.get("Success")) is False:
 			message = self._message(data)
 			raise ComstoreError(classify(message), message, payload=payload, response=data)
 
 		return data
+
+	# Keys that only ever appear in a Comstore reply. Used to tell the device's own
+	# answer apart from a proxy's, since both can be valid JSON.
+	# Distinctive to Comstore. Generic names like `message`, `error_code` and
+	# `version` are deliberately excluded: CDNs and proxies use them too, and it
+	# was exactly `error_code` that made a Cloudflare 530 look like a device reply.
+	DEVICE_KEYS = frozenset(
+		{
+			"success", "Success", "apiService", "deviceConnection",
+			"serial_number", "SerialNumber", "signature", "invoice_number",
+			"items_processed", "invoices_on_device", "Buyers", "RecordsProcessed",
+			"scu_id", "cu-inv-no",
+		}
+	)
+
+	@classmethod
+	def _looks_like_device_reply(cls, data):
+		return bool(cls.DEVICE_KEYS & set(data))
 
 	@staticmethod
 	def _message(data):
@@ -137,6 +213,24 @@ class ComstoreClient:
 			{"sn": serial_number or self.serial_number, "ip": ip},
 			timeout=20,
 		)
+
+	def check_credentials(self, serial_number=None):
+		"""
+		Prove the API key, which :meth:`health` cannot: ``/api/health`` is
+		unauthenticated and answers 200 to a wrong key, or to no key at all.
+
+		Returns ``(ok, detail)``. Any answer other than an auth refusal counts as
+		accepted -- a device-level complaint about the serial number still proves
+		the request got past the header check, and this method is about the key.
+		"""
+		try:
+			self.invoice_status(serial_number)
+		except ComstoreError as e:
+			if e.spec is AUTH_REJECTED:
+				return False, e.detail or "The device refused the API key."
+			return True, f"Key accepted; the device then reported: {e.spec.summary}"
+
+		return True, "Key accepted."
 
 	def is_connected(self):
 		try:
