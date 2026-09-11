@@ -402,6 +402,49 @@ def load_demo_catalogue(limit=None, item_group=None, uom="Nos"):
 
 
 @frappe.whitelist()
+def enqueue_demo_catalogue(action, limit=None):
+	"""
+	Queue a catalogue load or removal, for the buttons on eTIMS Settings.
+
+	479 Items is more work than an HTTP request should hold open. On Frappe Cloud
+	the proxy closes the connection long before the job finishes, which leaves the
+	user unable to tell a timeout from a failure -- and with no shell to check
+	from. The button therefore queues the work and the outcome arrives over
+	realtime when it is actually done.
+	"""
+	frappe.only_for("System Manager")
+
+	if action not in ("load", "delete"):
+		frappe.throw(_("Unknown demo catalogue action: {0}").format(action))
+
+	frappe.enqueue(
+		"etims_integration.seed.run_demo_catalogue",
+		queue="long",
+		timeout=1800,
+		action=action,
+		limit=limit,
+		notify_user=frappe.session.user,
+	)
+
+	return {"queued": True, "action": action}
+
+
+def run_demo_catalogue(action, limit=None, notify_user=None):
+	"""Worker half of :func:`enqueue_demo_catalogue`."""
+	notify_user = notify_user or frappe.session.user
+
+	try:
+		result = load_demo_catalogue(limit=limit) if action == "load" else delete_demo_catalogue()
+		payload = {"action": action, "result": result}
+	except Exception as e:
+		# The traceback belongs in the Error Log; the user gets the sentence.
+		frappe.log_error(title="eTIMS demo catalogue")
+		payload = {"action": action, "error": str(e)}
+
+	frappe.publish_realtime("etims_demo_catalogue", payload, user=notify_user)
+
+
+@frappe.whitelist()
 def delete_demo_catalogue():
 	"""
 	Remove every catalogue item, except any that a transaction now points at.

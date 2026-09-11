@@ -12,6 +12,7 @@ required_apps = ["erpnext"]
 doctype_js = {
 	"Sales Invoice": "public/js/sales_invoice.js",
 	"ETIMS Device": "public/js/etims_device.js",
+	"ETIMS Settings": "public/js/etims_settings.js",
 }
 
 doctype_list_js = {
