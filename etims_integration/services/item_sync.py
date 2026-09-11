@@ -130,22 +130,35 @@ def sync_device_items(device, item_codes=None, force=False):
 		filters["status"] = ("in", ("Pending", "Failed"))
 
 	registrations = frappe.get_all(
-		"ETIMS Item Registration", filters=filters, fields=["name", "item", "plu_no", "fingerprint", "stock_on_device"],
+		"ETIMS Item Registration",
+		filters=filters,
+		fields=["name", "item", "plu_no", "fingerprint", "stock_on_device"],
 		limit=BATCH_LIMIT,
 	)
 
 	client = device_doc.get_client()
-	pending, results = [], {"sent": 0, "skipped": 0, "failed": 0}
+	pending = []
+	results = {
+		"sent": 0,
+		"skipped": 0,
+		"failed": 0,
+		"skipped_reasons": {},
+		# One run only ever looks at BATCH_LIMIT registrations. Saying so beats a
+		# catalogue that appears to stop syncing for no reason at 200 items.
+		"unprocessed": max(0, frappe.db.count("ETIMS Item Registration", filters) - len(registrations)),
+	}
 
 	for registration in registrations:
 		item = frappe.get_cached_doc("Item", registration.item)
-		if item_mapping.missing_configuration(item):
-			results["skipped"] += 1
+
+		missing = item_mapping.missing_configuration(item)
+		if missing:
+			_skip(results, registration.item, _("not configured: {0}").format(", ".join(missing)))
 			continue
 
 		fingerprint = item_mapping.fingerprint(item)
 		if fingerprint == registration.fingerprint and not force:
-			results["skipped"] += 1
+			_skip(results, registration.item, _("unchanged since the last sync"))
 			continue
 
 		try:
@@ -169,6 +182,21 @@ def sync_device_items(device, item_codes=None, force=False):
 		results["sent"] += _flush(client, pending, results)
 
 	return results
+
+
+def _skip(results, item_code, reason):
+	"""
+	Record *why* an item was skipped, grouped by reason.
+
+	A bare count is the least actionable thing a sync can report: "skipped 479"
+	reads identically whether every item is missing a packaging unit or every
+	item is simply already up to date.
+	"""
+	results["skipped"] += 1
+	entry = results["skipped_reasons"].setdefault(reason, {"count": 0, "examples": []})
+	entry["count"] += 1
+	if len(entry["examples"]) < 10:
+		entry["examples"].append(item_code)
 
 
 def _flush(client, pending, results):

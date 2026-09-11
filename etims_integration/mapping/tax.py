@@ -117,6 +117,46 @@ def resolve_band(item_code, item_tax_template=None, item_name=None):
 	raise UnresolvedBand(item_code, item_name or item_code, item_tax_template)
 
 
+def band_for_item(item):
+	"""
+	The band an *item* registers under, resolved by the same order of authority
+	an invoice line uses: the item's own field, then the eTIMS Tax Mapping for a
+	tax template the item carries, then the Item Group's default.
+
+	Registration used to read ``custom_etims_tax_type`` off the Item alone, while
+	invoicing went through :func:`resolve_band`. An item configured in bulk -- by
+	Item Group, or by Item Tax Template through the mapping table -- was therefore
+	fully invoiceable but never registrable: the sync counted it as unconfigured
+	and skipped it on every run, and the device then rejected its first invoice
+	line with E337 for an item it had never been told about.
+
+	Returns the bare letter, or None when nothing answers. Never guessed at.
+	"""
+	band = normalise_band(item.get("custom_etims_tax_type"))
+	if band:
+		return band
+
+	# Only when the item's own templates agree. Two templates naming different
+	# bands is ambiguity, and quietly picking one is the class of silent error
+	# this module exists to prevent -- so it falls through to the Item Group.
+	mapping = _template_band_map()
+	mapped = {
+		mapping.get(row.get("item_tax_template"))
+		for row in (item.get("taxes") or [])
+		if row.get("item_tax_template")
+	}
+	mapped.discard(None)
+	if len(mapped) == 1:
+		return mapped.pop()
+
+	if item.get("item_group"):
+		return normalise_band(
+			frappe.get_cached_value("Item Group", item.get("item_group"), "custom_etims_tax_type")
+		)
+
+	return None
+
+
 def band_rate(band):
 	return BAND_RATES.get(band, Decimal("0"))
 

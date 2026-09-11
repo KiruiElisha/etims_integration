@@ -18,8 +18,8 @@ from decimal import Decimal
 import frappe
 from frappe import _
 
-from etims_integration.comstore.schema import PLUItem
-from etims_integration.mapping import sanitize
+from etims_integration.comstore.schema import BAND_LABELS, PLUItem
+from etims_integration.mapping import sanitize, tax
 
 ZERO = Decimal("0")
 
@@ -29,11 +29,13 @@ PRODUCT_TYPES = {
 	"03": "03Service without stock",
 }
 
+# Fields that must be set on the Item itself. The tax band is deliberately not
+# here: it has a fallback chain (Item -> tax mapping -> Item Group), so a blank
+# field does not mean an unconfigured item. See missing_configuration.
 REQUIRED_FIELDS = (
 	("custom_etims_item_class_code", "eTIMS Item Classification"),
 	("custom_etims_package_unit", "eTIMS Packaging Unit"),
 	("custom_etims_quantity_unit", "eTIMS Quantity Unit"),
-	("custom_etims_tax_type", "eTIMS Tax Type"),
 )
 
 
@@ -74,7 +76,15 @@ def origin_country_code(country):
 
 def missing_configuration(item):
 	"""Which eTIMS fields the item still lacks. Empty means it can be registered."""
-	return [label for fieldname, label in REQUIRED_FIELDS if not item.get(fieldname)]
+	missing = [label for fieldname, label in REQUIRED_FIELDS if not item.get(fieldname)]
+
+	# Resolved rather than read: an item whose band comes from its Item Group is
+	# configured, and treating it as unconfigured is what made the sync skip
+	# bulk-configured catalogues item for item.
+	if not tax.band_for_item(item):
+		missing.append("eTIMS Tax Type")
+
+	return missing
 
 
 def build(item, plu_no, unit_price=None, change_qty=ZERO, stocks=ZERO):
@@ -104,7 +114,7 @@ def build(item, plu_no, unit_price=None, change_qty=ZERO, stocks=ZERO):
 		package_unit=_code_value("ETIMS Packaging Unit", item.custom_etims_package_unit),
 		quantity_unit=_code_value("ETIMS Quantity Unit", item.custom_etims_quantity_unit),
 		origin_country=origin_country_code(item.get("custom_etims_origin_country") or item.get("country_of_origin")),
-		tax_type=item.custom_etims_tax_type,
+		tax_type=BAND_LABELS[tax.band_for_item(item)],
 		product_type=PRODUCT_TYPES.get(
 			(item.get("custom_etims_product_type") or "").strip()[:2],
 			"03Service without stock" if not item.get("is_stock_item") else "02Finished Product",
