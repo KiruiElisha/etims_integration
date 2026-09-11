@@ -192,6 +192,26 @@ class ETIMSTransmission(Document):
 		# and this now runs on every attempt, not just on a signature.
 		invoice.db_set(values, update_modified=False)
 
+		# Tell any open Sales Invoice form. Every write above happens in a
+		# background worker, so someone watching the invoice they just queued sees
+		# "Queued" until they reload by hand -- and Queued is exactly the state
+		# that looks stuck when it is actually finished.
+		#
+		# after_commit, because the worker's transaction has not landed yet: firing
+		# now would have the browser re-read the row it already has and redisplay
+		# the state it is trying to leave.
+		frappe.publish_realtime(
+			"etims_invoice_update",
+			{
+				"invoice": self.sales_invoice,
+				"transmission": self.name,
+				"status": self.status,
+			},
+			doctype="Sales Invoice",
+			docname=self.sales_invoice,
+			after_commit=True,
+		)
+
 	# -------------------------------------------------------------------- desk
 
 	@frappe.whitelist()

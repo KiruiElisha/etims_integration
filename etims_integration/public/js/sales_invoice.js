@@ -1,6 +1,11 @@
 // Sales Invoice: eTIMS status, and the two actions a user actually needs.
 frappe.ui.form.on("Sales Invoice", {
 	refresh(frm) {
+		// Bound before the draft check: the listener belongs to the form, which
+		// Frappe reuses across every Sales Invoice you open, so binding must not
+		// depend on which one happened to be open first.
+		watch_etims_status(frm);
+
 		if (frm.doc.docstatus === 0) {
 			return;
 		}
@@ -26,6 +31,46 @@ frappe.ui.form.on("Sales Invoice", {
 		}
 	},
 });
+
+// Sending happens in a background worker, so the form that queued an invoice
+// never hears how it ended. Without this the status sits on "Queued" until the
+// user reloads -- the one state that looks broken when it is merely finished.
+//
+// Bound once per form object. Frappe reuses one form per doctype and swaps
+// frm.doc as you navigate, so `frm.doc.name` is read at event time and the guard
+// below is what keeps another invoice's update from reloading this one.
+function watch_etims_status(frm) {
+	if (frm.__etims_status_bound) {
+		return;
+	}
+	frm.__etims_status_bound = true;
+
+	frappe.realtime.on("etims_invoice_update", (data) => {
+		if (!data || data.invoice !== frm.doc.name || data.status === frm.doc.custom_etims_status) {
+			return;
+		}
+
+		const colours = { Signed: "green", Failed: "orange", Blocked: "red" };
+
+		// Never reload over unsaved edits: a submitted invoice still has editable
+		// fields, and discarding someone's typing to show a status is a bad trade.
+		if (frm.is_dirty()) {
+			frappe.show_alert({
+				message: __("eTIMS status is now {0}. Reload to see the fiscal details.", [
+					__(data.status),
+				]),
+				indicator: colours[data.status] || "blue",
+			});
+			return;
+		}
+
+		frappe.show_alert({
+			message: __("eTIMS: {0}", [__(data.status)]),
+			indicator: colours[data.status] || "blue",
+		});
+		frm.reload_doc();
+	});
+}
 
 function show_status(frm) {
 	const status = frm.doc.custom_etims_status;
