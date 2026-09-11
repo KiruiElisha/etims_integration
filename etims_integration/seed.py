@@ -14,6 +14,14 @@ Two separate jobs, deliberately kept apart:
 * :func:`create_demo_items` builds a set of fully-configured test items, one per
   VAT band, so a new site can be exercised end to end without hand-filling KRA
   codes on real stock first. They are clearly named and can be deleted.
+
+* :func:`load_demo_catalogue` loads the shipped 479-item PLU sheet
+  (``data/demo_catalogue.csv``), which is a real vendor export. It is the
+  *volume* fixture, not the tax fixture: every row on it is standard-rated, so
+  it exercises PLU batching, item search and list performance, while
+  :func:`create_demo_items` remains the one that covers the VAT bands. The two
+  are independent and use different item-code prefixes, so loading or deleting
+  one never disturbs the other.
 """
 
 import csv
@@ -21,6 +29,7 @@ import os
 
 import frappe
 from frappe import _
+from frappe.utils import flt
 
 DEMO_PREFIX = "ETIMS-DEMO-"
 
@@ -207,4 +216,232 @@ def import_item_classifications(file_path, code_column="code", description_colum
 		"skipped_existing": skipped,
 		"problems": problems[:20],
 		"total": frappe.db.count("ETIMS Item Classification"),
+	}
+
+
+# ----------------------------------------------------------- demo catalogue
+
+DEMO_CATALOGUE_PREFIX = "ETIMS-DEMO-PLU-"
+CATALOGUE_FILE = "demo_catalogue.csv"
+
+# Columns the loader actually reads. The shipped file carries the vendor's full
+# PLU layout so a site can drop in its own export unchanged, but only these are
+# needed to build an Item.
+CATALOGUE_COLUMNS = (
+	"PLUNo",
+	"PLUName",
+	"UnitPrice",
+	"item_ClsCode",
+	"pkgUnitCd",
+	"qtyUnitCd",
+	"OrgnNatCd",
+	"TaxType",
+	"TypeCode",
+)
+
+
+def _catalogue_path():
+	return os.path.join(frappe.get_app_path("etims_integration"), "data", CATALOGUE_FILE)
+
+
+def _code_of(value):
+	"""
+	The PLU sheet writes a coded field as ``<code>-<label>`` -- ``BG-Bag``,
+	``U-Pieces/item [Number]``, ``KE-KENYA`` -- but the masters are keyed on the
+	code alone.
+
+	Not used for TaxType or TypeCode: those are Select fields whose stored value
+	*is* the full string ("B-16.00%", "02Finished Product"), and splitting them
+	would quietly turn every item Exempt-shaped.
+	"""
+	return (value or "").split("-", 1)[0].strip()
+
+
+def _read_catalogue(limit=None):
+	path = _catalogue_path()
+	if not os.path.isfile(path):
+		frappe.throw(_("The demo catalogue is missing from the app: {0}").format(path))
+
+	with open(path, newline="", encoding="utf-8-sig") as handle:
+		reader = csv.DictReader(handle)
+		missing = [c for c in CATALOGUE_COLUMNS if c not in (reader.fieldnames or [])]
+		if missing:
+			frappe.throw(_("The catalogue CSV is missing columns: {0}").format(", ".join(missing)))
+
+		rows = [r for r in reader if (r.get("PLUNo") or "").strip()]
+
+	return rows[: int(limit)] if limit else rows
+
+
+def _require_catalogue_masters(rows):
+	"""
+	Check the codes the file actually uses, once, before inserting anything.
+
+	The alternative is 479 individual link-validation failures, which reports the
+	same single missing master 479 times and leaves a half-loaded catalogue behind.
+	"""
+	wanted = set()
+	for row in rows:
+		wanted.add(("ETIMS Item Classification", (row.get("item_ClsCode") or "").strip()))
+		wanted.add(("ETIMS Packaging Unit", _code_of(row.get("pkgUnitCd"))))
+		wanted.add(("ETIMS Quantity Unit", _code_of(row.get("qtyUnitCd"))))
+
+	missing = sorted(
+		f"{doctype} {name}"
+		for doctype, name in wanted
+		if name and not frappe.db.exists(doctype, name)
+	)
+	if missing:
+		frappe.throw(
+			_("KRA code masters are not seeded ({0}). Run `bench --site <site> migrate` first.").format(
+				", ".join(missing)
+			)
+		)
+
+
+def _country_names(iso_codes):
+	"""
+	``OrgnNatCd`` is an ISO alpha-2 code but the Item field links to Country by
+	name, so the codes are resolved once per run into ``{code: name}``.
+
+	Resolved per run rather than cached on the module: a worker process outlives
+	the request, and a cached miss would keep reporting a Country as missing after
+	someone had added it and re-run.
+
+	A code with no matching Country is absent from the result, which the caller
+	reports as a per-row problem rather than guessing a country.
+	"""
+	names = {}
+	for code in {(c or "").strip().lower() for c in iso_codes} - {""}:
+		name = frappe.db.get_value("Country", {"code": code}, "name")
+		if name:
+			names[code] = name
+	return names
+
+
+@frappe.whitelist()
+def load_demo_catalogue(limit=None, item_group=None, uom="Nos"):
+	"""
+	Create Items from the shipped PLU sheet, skipping any that already exist.
+
+	::
+
+	    bench --site <site> execute etims_integration.seed.load_demo_catalogue
+	    bench --site <site> execute etims_integration.seed.load_demo_catalogue --kwargs "{'limit': 25}"
+
+	``limit`` takes the first N rows. 479 items is a lot to look at when all you
+	wanted was something to put on a test invoice, and a partial load is topped up
+	by re-running without it.
+	"""
+	frappe.only_for("System Manager")
+
+	rows = _read_catalogue(limit)
+	_require_catalogue_masters(rows)
+	item_group = item_group or _default_item_group()
+	countries = _country_names(_code_of(r.get("OrgnNatCd")) for r in rows)
+
+	created = skipped = 0
+	problems = []
+
+	for index, row in enumerate(rows, start=2):
+		plu_no = (row.get("PLUNo") or "").strip()
+		code = f"{DEMO_CATALOGUE_PREFIX}{plu_no.zfill(4)}"
+
+		if frappe.db.exists("Item", code):
+			skipped += 1
+			continue
+
+		country = countries.get(_code_of(row.get("OrgnNatCd")).lower())
+		if not country:
+			problems.append(f"row {index} ({code}): no Country matches '{row.get('OrgnNatCd')}'")
+			continue
+
+		try:
+			frappe.get_doc(
+				{
+					"doctype": "Item",
+					"item_code": code,
+					"item_name": (row.get("PLUName") or code).strip()[:140],
+					"item_group": item_group,
+					"stock_uom": uom,
+					"is_stock_item": 1,
+					"is_sales_item": 1,
+					"is_purchase_item": 0,
+					"standard_rate": flt(row.get("UnitPrice")),
+					"description": "Loaded by the eTIMS app from the demo catalogue. Safe to delete.",
+					"custom_etims_item_class_code": (row.get("item_ClsCode") or "").strip(),
+					"custom_etims_tax_type": (row.get("TaxType") or "").strip(),
+					"custom_etims_product_type": (row.get("TypeCode") or "").strip(),
+					"custom_etims_origin_country": country,
+					"custom_etims_package_unit": _code_of(row.get("pkgUnitCd")),
+					"custom_etims_quantity_unit": _code_of(row.get("qtyUnitCd")),
+				}
+			).insert(ignore_permissions=True)
+			created += 1
+		except Exception as e:
+			problems.append(f"row {index} ({code}): {e}")
+
+		# Commit in batches. A single transaction spanning 479 inserts holds locks
+		# for the whole run and loses everything if one row at the end throws.
+		if created and created % 50 == 0:
+			frappe.db.commit()
+
+	frappe.db.commit()
+
+	return {
+		"created": created,
+		"skipped_existing": skipped,
+		"problems": problems[:20],
+		"problem_count": len(problems),
+		"total_on_site": frappe.db.count("Item", {"item_code": ["like", f"{DEMO_CATALOGUE_PREFIX}%"]}),
+		"next": _(
+			"Register them from the Item list (Actions > Register with eTIMS), "
+			"then upload the PLU data to the device."
+		),
+	}
+
+
+@frappe.whitelist()
+def delete_demo_catalogue():
+	"""
+	Remove every catalogue item, except any that a transaction now points at.
+
+	::
+
+	    bench --site <site> execute etims_integration.seed.delete_demo_catalogue
+
+	Matches on the item-code prefix rather than re-reading the CSV, so items left
+	behind by an older version of the file are cleaned up too.
+	"""
+	frappe.only_for("System Manager")
+
+	codes = frappe.get_all(
+		"Item", filters={"item_code": ["like", f"{DEMO_CATALOGUE_PREFIX}%"]}, pluck="name"
+	)
+
+	deleted = 0
+	kept, problems = [], []
+
+	for code in codes:
+		try:
+			frappe.delete_doc("Item", code, ignore_permissions=True)
+			deleted += 1
+		except frappe.LinkExistsError:
+			# Invoiced, or carrying stock. Deleting would orphan the transaction;
+			# that is a refusal, not a failure.
+			kept.append(code)
+		except Exception as e:
+			problems.append(f"{code}: {e}")
+
+		if deleted and deleted % 50 == 0:
+			frappe.db.commit()
+
+	frappe.db.commit()
+
+	return {
+		"deleted": deleted,
+		"kept_because_in_use": kept[:20],
+		"kept_count": len(kept),
+		"problems": problems[:20],
+		"remaining": frappe.db.count("Item", {"item_code": ["like", f"{DEMO_CATALOGUE_PREFIX}%"]}),
 	}

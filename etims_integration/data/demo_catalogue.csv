@@ -1,0 +1,480 @@
+PLUNo,Barcode,PLUName,UnitPrice,item_ClsCode,pkgUnitCd,qtyUnitCd,OrgnNatCd,BtchNo,TaxType,sftyQty,TypeCode,isrcAplcbYn,AddInfo,changeqty,Stocks,UseYorN
+1,1,Demo Stock Item,100,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,0,02Finished Product,0,,0,999993,1
+2,2,Aco Pine Gel Original 250ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+3,3,Airoma Airfreshners Citrus Dazzle 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+4,4,Airoma Airfreshners Cotton Breeze 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+5,5,Airoma Airfreshners Floral Bloom 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+6,6,Airoma Airfreshners Lavender Dreams 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+7,7,Airoma Airfreshners Ocean Spray 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+8,8,Airoma Airfreshners Pomegranate 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+9,9,Airoma Pocket Freshener Aqua Fresh,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+10,10,Airoma Pocket Freshener Citrus Burst,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+11,11,Airoma Pocket Freshener Fruit Blast,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+12,12,Airoma Pocket Freshener Lavender Mist,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+13,13,BLUEBERRY SAUCE 10*650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+14,14,CAREX HW LIQ 250ML ALOE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+15,15,CAREX HW LIQ 250ML ORIGINAL X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+16,16,CAREX HW LIQ 250ML SENSITIVE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+17,17,CAREX HW LIQ 500ML ALOE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+18,18,CAREX HW LIQ 500ML ORIGINAL X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+19,19,CAREX HW LIQ 500ML SENSITIVE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+20,20,CB MG JELLY 100ML X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+21,21,CB MG JELLY 200ML+CBABY SOAP 100G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+22,22,CB MG JELLY 50ML X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+23,23,CB MG OIL 100MLX12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+24,24,CB MG OIL 50MLX24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+25,25,CB MG POWDER 100G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+26,26,CB MG POWDER 50G X48 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+27,27,CB SOAP 100G CBMG X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+28,28,CB SOAP 100G CBSS X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+29,29,CB SOAP 100G FRESH & NOURISH X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+30,30,CB SOAP 100G PROTECT CARE X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+31,31,CB SS JELLY 200ML+CBABY SOAP 100G X12 TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+32,32,CB SS OIL 100MLX12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+33,33,CB SS OIL 50MLX24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+34,34,CB SS POWDER 100G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+35,35,CB WIPES 30'S M&G X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+36,36,CB WIPES 30'S S&S X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+37,37,CBABY PWD 200G MILD AND GENTLE* 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+38,38,CBABY PWD 200G SOFT AND SMOOTH *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+39,39,CBMG GFT BOX + TEDDY BEAR 1x1,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+40,40,CBMG GFT LARGE BLUE BAG 1X1,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+41,41,CBMG GFT SMALL BLUE BAGX6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+42,42,CBMG JEL 100ML *12*3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+43,43,CBMG JEL 200ML +CBABY SOAP 100G*12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+44,44,CBMG JEL 50ML *12*3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+45,45,CBMG OIL 200ML+CB SOAP 100G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+46,46,CBMG POWDER 200G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+47,47,CBMG PWD 100G*12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+48,48,CBMG PWD 50G*48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+49,49,CBMG WPE 80'S X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+50,50,CBSS GFT BOX + TEDDY BEAR 1x1,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+51,51,CBSS GFT LARGE PINK BAG 1X1,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+52,52,CBSS GFT SMALL PINK BAGX6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+53,53,CBSS JEL 100ML *12*3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+54,54,CBSS JEL 200ML+CBABY SOAP 100G*12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+55,55,CBSS JEL 50ML *12*3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+56,56,CBSS JELLY 100ML X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+57,57,CBSS JELLY 50ML X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+58,58,CBSS OIL 200MLX12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+59,59,CBSS POWDER 200G X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+60,60,CBSS POWDER 50G X48 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+61,61,CBSS PWD 100GX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+62,62,CBSS PWD 50G*48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+63,63,CBSS WPE 80's X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+64,64,CHOCOLATE SAUCE 10*650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+65,65,CUSSONS BABY MG OIL 100ML* 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+66,66,CUSSONS BABY MG OIL 200ML* 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+67,67,CUSSONS BABY MG OIL 50ML*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+68,68,CUSSONS BABY SS OIL 100ML* 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+69,69,CUSSONS BABY SS OIL 200ML* 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+70,70,CUSSONS BABY SS OIL 50ML*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+71,71,D/L chocolate Almond & raising 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+72,72,D/L chocolate Almond & raising 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+73,73,D/L chocolate dark milk 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+74,74,D/L chocolate dark milk 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+75,75,D/L chocolate hazelnut 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+76,76,D/L chocolate milk w/cookies 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+77,77,D/L chocolate milk w/cookies 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+78,78,D/L chocolate mint crunch 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+79,79,D/L chocolate orange crunch 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+80,80,D/L chocolate orange crunch 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+81,81,D/L chocolate real milk 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+82,82,D/L chocolate real milk 24*20g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+83,83,D/L chocolate real milk 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+84,84,D/L chocolate real white 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+85,85,D/L chocolate real white 24*20g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+86,86,D/L chocolate real white 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+87,87,D/L chocolate salted caramel 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+88,88,D/L chocolate salted caramel 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+89,89,D/L chocolate white w/cookies 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+90,90,D/L chocolate white w/cookies 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+91,91,D/L filled chocolate berry bliss 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+92,92,D/L filled chocolate berry bliss 24*37g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+93,93,D/L filled chocolate double choc 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+94,94,D/L filled chocolate double choc 24*37g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+95,95,D/L filled chocolate mint choc 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+96,96,D/L filled chocolate mint choc 24*37g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+97,97,D/Land Chocolate Hazelnut 24*40g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+98,98,D/Land Dip-a-snack 12*56gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+99,99,D/Land classic chocolate spread 12*275gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+100,100,D/Land classic chocolate spread 6*650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+101,101,D/Land duo chocolate spread 12*275gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+102,102,D/Land hazelnut chocolate spread 12*275gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+103,103,D/land Chocolate Mint Crunch 12*80g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+104,104,D/land Drinking Chocolate 12*225gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+105,105,D/land Drinking Chocolate 48*100gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+106,106,D/land Drinking choc sachets 48*50gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+107,107,D/land drinking choc Jar 24*125gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+108,108,D/land drinking choc Sachet 120*15gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+109,109,D/land drinking choc jar 6 * 450gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+110,110,DARK COMPOUND CHOCOLATE 20*500gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+111,111,DARK COMPOUND CHOCOLATE 4*2.5Kgs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+112,112,Eledent Briten Shiny 75g x 144,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+113,113,Eledent T/Paste CoolMinty 150g x 72,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+114,114,Ezee All Purpose Washing Liquid 1 Ltr,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+115,115,Ezee All Purpose Washing Liquid 500gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+116,116,Ezee Bleach Regular 1L,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+117,117,Ezee Bleach Regular 250ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+118,118,Ezee Bleach Regular 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+119,119,Ezee Bleach Regular 70ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+120,120,Ezee Dish Washing Gel S/Lemon 800ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+121,121,JACKDANIELS 1LTR,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,1000,02Finished Product,0,,0,1999998,1
+122,122,BEDSHEET EXPRESS,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,1000,02Finished Product,0,,0,1999998,1
+123,123,SHIRT PICKUP & DELIVERY,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,1000,02Finished Product,0,,0,1999998,1
+124,124,Ezee Dish Washing Paste S/Lemon 250Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+125,125,Ezee Dish Washing Paste S/Lemon 400Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+126,126,Ezee Dish Washing Paste S/Lemon 800Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+127,127,Ezee Dish Washing Paste S/Lime 250Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+128,128,Ezee Dish Washing Paste S/Lime 400Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+129,129,Ezee Dish Washing Paste S/Lime 800Grams,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+130,130,Ezee Liquid Bleach Colours 1 Ltr,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+131,131,Ezee Liquid Bleach Colours 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+132,132,Ezee Multi Surface Cleaner 300ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+133,133,Ezee Scouring Powder 1 Kg,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+134,134,Ezee Scouring Powder 500gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+135,135,Ezee Toilet Cleaner Lemon Power 1L,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+136,136,Ezee Toilet Cleaner Lemon Power 250ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+137,137,Ezee Toilet Cleaner Lemon Power 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+138,138,Ezee Toilet Cleaner Ocean Power 1L,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+139,139,Ezee Toilet Cleaner Ocean Power 250ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+140,140,Ezee Toilet Cleaner Ocean Power 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+141,141,Ezee Wood Polish,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+142,142,FLAM HW LIQ 400ML ALOE VERA X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+143,143,FLAM HW LIQ 400ML COCONUT MILK X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+144,144,FLAM HW LIQ 400ML LEMON X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+145,145,FLAM HW LIQ 400ML OCEAN FRESH X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+146,146,FLAM HW LIQ 400ML ROSE x12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+147,147,FLAM SOAP 200G ALOE VEAR & HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+148,148,FLAM SOAP 200G BLACK X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+149,149,FLAM SOAP 200G COCONUT MILK & HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+150,150,FLAM SOAP 200G LEMON & HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+151,151,FLAM SOAP 200G MARULA OIL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+152,152,FLAM SOAP 200G ROSE & HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+153,153,FLAM SOAP 90G BLACK & HONEY SINGLES,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+154,154,FLAM SOAP 90G C. MILK & HONEY SINGLE X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+155,155,FLAM SOAP 90G LEMON & HONEY SINGLE X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+156,156,FLAM SOAP 90G MARULA & HONEY SINGLES,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+157,157,FLAM SOAP 90G X 3 ALOE VERA&HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+158,158,FLAM SOAP 90G X 3 BLACK X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+159,159,FLAM SOAP 90G X 3 COCONUT MILK&HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+160,160,FLAM SOAP 90G X 3 LEMON&HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+161,161,FLAM SOAP 90G X 3 MARULA OIL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+162,162,FLAM SOAP 90G X 3 ROSE&HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+163,163,Germol Cool Soap 125g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+164,164,Germol Fresh Soap 125g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+165,165,Germol Liquid 100ml - ASL,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+166,166,Germol Liquid 50ml - ASL,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+167,167,Germol Soap 125g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+168,168,Hours,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+169,169,IL BD 400ML ROSEHIP & HONEY X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+170,170,IL BD LOT 200ML JOJOBA & BAOBAB X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+171,171,IL BD LOT 200ML ROSEHIP & HONEY X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+172,172,IL BD LOT 200ML UPLIFTING X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+173,173,IL BD LOT 400ML ACTIVE + 200ML OUD X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+174,174,IL BD LOT 400ML COFFEE & COCOA X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+175,175,IL BD LOT 400ML JAPANESE SPA + 200ML OUD X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+176,176,IL BD LOT 400ML JASMINE & RICE MILK X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+177,177,IL BD LOT 400ML JOJOBA & BAOBAB X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+178,178,IL BD LOT 400ML MENTHOL & BLACKMINT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+179,179,IL BD LOT 400ML UPLIFTING + 200ML OUDA X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+180,180,IL BDLOT 400ML ROYAL.SUPREME+IL BDLOT 200MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+181,181,IL BDLOT 400ML SWEET.AMBER+IL BDLOT 200MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+182,182,IL BW 250ML JASMINE & RICE MILK (JSPA)X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+183,183,IL BW 250ML JOJOBA & BAOBAB X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+184,184,IL BW 250ML ROSEHIP & HONEY X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+185,185,IL BW 500ML ACTVE+IL BDLOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+186,186,IL BW 500ML JASMINE & RICE M. X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+187,187,IL BW 500ML JOJOBA & BAOBAB X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+188,188,IL BW 500ML JSPA + BDLOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+189,189,IL BW 500ML MENTHOL & BLACKMINT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+190,190,IL BW 500ML ROSEHIP & HONEY X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+191,191,IL BW 500ML ROYAL SUPREME OUD + ILBLOT200ML OUD,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+192,192,IL BW 500ML SWEET AMBER OUD + ILBDLOT200ML OUD,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+193,193,IL BW 500ML UPLFTG+IL BDLOT200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+194,194,IL BW UPLIFTING X 250ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+195,195,IL MEN'S SOAP INTENSE COOL 150G X2 - TWIN,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+196,196,IL MENS SOAP FRESH BURST 150G X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+197,197,IL MENS SOAP FRESH BURST150G X3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+198,198,IL MENS SOAP INTENSE COOL 150G X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+199,199,IL MENS SOAP INTENSE COOL 150G X3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+200,200,IL MENS SOAP SPORT 150G X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+201,201,IL MENS SOAP SPORT 150G X3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+202,202,IL SOAP 150 G X 3 SEA SALT BERG X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+203,203,IL SOAP 150GX3 JAPANESE SPA X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+204,204,IL SOAP 125G CL (3+1) X24(UTOPIA),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+205,205,IL SOAP 125G CL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+206,206,IL SOAP 125G JAPANESE SPA x24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+207,207,IL SOAP 125G JASMINE & RICE MILK (JSPA)X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+208,208,IL SOAP 125G OATMEAL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+209,209,IL SOAP 125G POMEGRATE & HIMALAYAN X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+210,210,IL SOAP 125G TIMELESS CLASSIC X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+211,211,IL SOAP 125Gx(3+1) JAPNSE SPAx24(UTOPIA),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+212,212,IL SOAP 150G (3+1) ASSORTED PACK X24 D2D BIG,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+213,213,IL SOAP 150G CLASSIC X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+214,214,IL SOAP 150G JAPANESE SPA X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+215,215,IL SOAP 150G JASMINE & RICE.M(JSPA)X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+216,216,IL SOAP 150G JOJOBA & BAOBAB X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+217,217,IL SOAP 150G ROSEHIP & HONEY X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+218,218,IL SOAP 150G SWEET AMBER+IL SOAP 150GX24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+219,219,IL SOAP 150G TIMELESS CLASSIC X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+220,220,IL SOAP 150G UPLIFTING X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+221,221,IL SOAP 150G X 3 JOJOBA & BAOBAB X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+222,222,IL SOAP 150GX2 CLASSIC TWIN PACK X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+223,223,IL SOAP 150GX2 JSPA TWIN PACK X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+224,224,IL SOAP 150GX2 TIMELESS CL TWINPACKACK X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+225,225,IL SOAP 150GX3 ACTIVE X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+226,226,IL SOAP 150GX3 CLASSIC X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+227,227,IL SOAP 150GX3 JASMINE & RICE M(JSPA) X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+228,228,IL SOAP 150GX3 ROSEHIP & HONEY X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+229,229,IL SOAP 150GX3 TIMELESS CLASSIC X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+230,230,IL SOAP 150GX3 UPLIFTING X24(UTOPIA),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+231,231,IL SOAP 150GX4 CLASSIC X24(UTOPIA),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+232,232,IL SOAP 15G CL X36X8,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+233,233,IL SOAP 15G TIMELESS CLASSIC X36X8,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+234,234,IL SOAP 75G CL X48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+235,235,IL SOAP 75G CL X48FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+236,236,IL SOAP 75G INTENSE COOL X 48 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+237,237,IL SOAP 75G TIMELESS CLASSIC X48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+238,238,IL SOAP CLASSIC 75G (2+1) X16- D2D PACK SMALL,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+239,239,IL SOAP150G ROYAL SUPREME+IL SOAP150GX24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+240,240,ILAC BD LOT 200MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+241,241,ILAC BW 250MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+242,242,ILJS BD LOT 200MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+243,243,ILJS BW 250MLX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+244,244,ILM SOAP 150G X 3 COFFEE & COCOA X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+245,245,ILM BD LOT 200ML COFFEE & COCOA X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+246,246,ILM BD LOT 200ML ICMEN X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+247,247,ILM BD LOT 400ML FRESH BURST+ BDLOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+248,248,ILM BD LOT 400ML INTENSE COOL + BD LOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+249,249,ILM BD LOT 400ML MENTHOL & BLACK MINT + 200ML BD LOT X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+250,250,ILM BD LOT 400ML SEA SALT & BERGAMONT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+251,251,ILM BD LOT 400ML SPORT+ BD LOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+252,252,ILM BW 250ML COFFEE & COCOA X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+253,253,ILM BW 250ML FRESH BURST X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+254,254,ILM BW 250ML ICMENX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+255,255,ILM BW 250ML INTENSE COOL/ BLACKMINT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+256,256,ILM BW 250ML SEA SALT & BERGAMONT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+257,257,ILM BW 250ML SPORT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+258,258,ILM BW 500ML COFFEE & COCOA X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+259,259,ILM BW 500ML IC+ILM BDLOT 200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+260,260,ILM BW 500ML INTENSE COOL / BLACKMINT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+261,261,ILM BW 500ML SEA SALT & BERGAMONT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+262,262,ILM BW 500ML SPRT+ILM BDLOT200ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+263,263,ILM MEN 150G SEA SALT & BERGAMONT X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+264,264,ILM SOAP 150G INTENSE.C / BLACK MINT X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+265,265,ILM SOAP 150G SEASALT & BERG X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+266,266,ILM SOAP 150G X 3 INTENSE C./BLACKMINT X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+267,267,ILM SOAP 150G X2 INTENSE. C/BLACKMINT X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+268,268,ILM SOAP 75G INTENSE COOL x48(UTOPIA),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+269,269,ILM SOAP MEN 150G COFFEE & COCOA X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+270,270,ILM SOAP MEN 150G X 3MENTHOL & BLACKMINT X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+271,271,INSTANT COFFEE SATCHET 1.6G,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+272,272,Ibucap Caps 1x10C (Bambam),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+273,273,Kaluma Balm 1.2ml 72pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+274,274,Kaluma Balm 4g 24pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+275,275,Kaluma Balm 7g 24pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+276,276,Kaluma Balm 9ml 12pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+277,277,Kaluma Inhaler 1g 12pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+278,278,Kaluma King + Lozenges 50 x2pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+279,279,Kaluma Pen - Black 25pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+280,280,Kaluma Pen - Blue 25pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+281,281,Kaluma Pen - Red 25pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+282,282,Kaluma Strong Tab 50 x 2T,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+283,283,Kaluma Toothpaste 150g 6pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+284,284,Kaluma Toothpaste White 150g 6pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+285,285,Kalumaplast Waterproof 100pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+286,286,MF CONC DSF LIQ 250ML LAVENDER FUSION X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+287,287,MF FRUITS & VEG WASH 400ML X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+288,288,MF MDWL 4000ML ZEST X 4,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+289,289,MF MDWL 400ML ANTB - ORANGE&T.TREE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+290,290,MF MDWL 400ML ORIG X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+291,291,MF MDWL 400ML ZEST X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+292,292,MF MDWL 750ML ANTB - ORANGE&T.TREE X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+293,293,MF MDWL 750ML ORIG X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+294,294,MF MDWL 750ML ZEST X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+295,295,MF MDWL DOY PACK 200ML ZEST X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+296,296,MF MDWPS 200G ZESTY (100G+100G) X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+297,297,MF MDWPS 400G ORIGINAL + MDWPS 400G X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+298,298,MF MDWPS 800G ORANGE + MF DWP 800G X12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+299,299,MF MDWPS ORIGINAL 100g +100g Free x 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+300,300,MF MDWSC 1KG ANTB - ORANGE&T.TREE X6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+301,301,MF MDWSC 500G ANTIBACTERIAL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+302,302,MF MDWSC 500G X 24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+303,303,MF MDWSC ORIG 1KG X6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+304,304,MF PASTE 400G ANTIBAC-ORANGE+MF PASTE 200GX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+305,305,MF PASTE 400G ZESTY+MF PASTE 200GX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+306,306,MF PASTE 800G ORIGINAL+MF PASTE 200GX12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+307,307,MFDWL 750ML APPLE X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+308,308,MFDWP 800G ZEST + MFDWP 400G ANT X 12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+309,309,MILK COMPOUND CHOCOLATE 20*500gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+310,310,MILK COMPOUND CHOCOLATE 4*2.5Kgs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+311,311,Mio Goodies Milk Compound 18*17g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+312,312,Mio Goodies Milk Compound 18*45gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+313,313,Mio Goodies White Compound 18*17g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+314,314,Mio Goodies White Compound 18*45gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+315,315,OLEMOL TOOTHBRUSH 4 COLOUR 12/BLUE 100PACK per Dozen,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+316,316,OLEMOL TOOTHBRUSH FOR CHILDREN 12pcs per Dozen,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+317,317,OLEMOL TOOTHPASTE 150G HERBAL,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+318,318,OLEMOL TOOTHPASTE 150G MINT,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+319,319,OPTILAIT-1 Pwd 400g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+320,320,OPTILAIT-2 Pwd 400g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+321,321,OPTILAIT-3 Pwd 400g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+322,322,Pharmasal Spray 150ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+323,323,Protector Antiseptic 125ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+324,324,Protector Antiseptic 250ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+325,325,Protector Hand Wash Coral Fresh 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+326,326,Protector Hand Wash Liquid Aloe Fresh 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+327,327,Protector Hand Wash Liquid Cotton 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+328,328,Protector Hand Wash Liquid Pink English Rose 500ml,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+329,329,ROBERTS ANTISEPTIC 125ML ORIG(NEW) X48 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+330,330,ROBERTS ANTISEPTIC 250ML (NEW) X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+331,331,ROBERTS ANTISEPTIC 500ML (NEW) X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+332,332,ROBERTS ANTISEPTIC 50ML *48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+333,333,ROBERTS ASL 125ML ORIG(REFRESH)*48,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+334,334,ROBERTS ASL 250ML ORIG (REFRESH)*36,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+335,335,ROBERTS ASL 500ML ORIG(REFRESH)*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+336,336,ROBERTS ASL 50ML+IL SOAP 75GX48 -TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+337,337,Relax Lemon Sachets 10x5g,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+338,338,STRAWBERRY SAUCE 10*650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+339,339,Services,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+340,340,Shalina Glucose Powder 10g 288pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+341,341,Shuggy Ad Pants Ex Large 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+342,342,Shuggy Ad Pants Large 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+343,343,Shuggy Ad Pants Medium 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+344,344,Shuggy Diaper Adult Ex Large 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+345,345,Shuggy Diaper Adult Large 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+346,346,Shuggy Diaper Adult Medium 10pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+347,347,Sonacare Sanitary Pad Ultra 8pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+348,348,Sonacare Ultra Soft Sanitary Pad 10+2pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+349,349,Sonadol Extra Tab 10 x 10T,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+350,350,Sonadol Tab 10 x 10T (Blue),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+351,351,Sonamoja Advance Tab 50 x 2T,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+352,352,Sonamoja Tab 50 x 2T,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+353,353,Sonaplast 100pcs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+354,354,VENUS 200ML INTENSIVE SOOTHING CREAM X6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+355,355,VENUS 200ML SERUM X6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+356,356,VENUS ALOE STYLING GEL 110G X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+357,357,VENUS BD LOT 125ML DEEP HYDRATING *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+358,358,VENUS BD LOT 125ML DEEP HYDRATINGX24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+359,359,VENUS BD LOT 125ML FIRMING *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+360,360,VENUS BD LOT 125ML FIRMING X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+361,361,VENUS BD LOT 125ML RADIANCE *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+362,362,VENUS BD LOT 125ML RADIANCE X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+363,363,VENUS BD LOT 125ML SOOTHING X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+364,364,VENUS BD LOT 125ML SOOTHING*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+365,365,VENUS BD LOT 200ML DEEP HYDRATING X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+366,366,VENUS BD LOT 200ML DEEP- HYDRATING *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+367,367,VENUS BD LOT 200ML FIRMING *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+368,368,VENUS BD LOT 200ML FIRMING X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+369,369,VENUS BD LOT 200ML RADIANCE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+370,370,VENUS BD LOT 200ML RADIANCE X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+371,371,VENUS BD LOT 200ML SOOTHING *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+372,372,VENUS BD LOT 200ML SOOTHING X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+373,373,VENUS BD LOT 400ML FIRMING + 125ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+374,374,VENUS BD LOT 400ML FIRMING +125ML X6 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+375,375,VENUS BD LOT 400ML HYDRATING + 125ML X6 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+376,376,VENUS BD LOT 400ML HYDRATING +125ML *6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+377,377,VENUS BD LOT 400ML NOURISHING X 6 TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+378,378,VENUS BD LOT 400ML RADIANCE +125ML X6 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+379,379,VENUS BD LOT 400ML RADIANCE +125ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+380,380,VENUS BD LOT 400ML SOOTHING +125ML X6 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+381,381,VENUS BD LOT 400ML SOOTHING +125ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+382,382,VENUS BD LOT NOURISHING + 125ML LVN TRT * 6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+383,383,VENUS BD LOT SMOOTHING + 125ML LVN TRT * 6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+384,384,VENUS BD SCRUB HIMALAYAN SALT 350G X6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+385,385,VENUS CURL M.SEAL 210G+50ML BD LOT *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+386,386,VENUS CURL M.SEAL 210G+50ML BD LOT *12- FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+387,387,VENUS H/GEL 50G CURL MOISTURE SEAL *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+388,388,VENUS H/GEL 50G CURL MOISTURE SEAL X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+389,389,VENUS HAIR FOOD 100ML ANTIDANDRUFF X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+390,390,VENUS HAIR FOOD 100ML MOISTURE SEAL X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+391,391,VENUS HAIR FOOD 210ML ANTIDANDRUFF SOOTHING X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+392,392,VENUS HAIR FOOD 50ML ANTIDANDRUFF X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+393,393,VENUS HAIR GEL 50G MOISTURE SEAL X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+394,394,VENUS HAIR TREATMENT WSH ANTDANDRUFF SOOTH 225MLX12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+395,395,VENUS HAIR TREATMENT LEAVE IN 50ML ANTI-DANDRUFF X48 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+396,396,VENUS HAIR TREATMENT LEAVE IN AD 125ML X 24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+397,397,VENUS HAIR TREATMENT LEAVE IN MOISTURE SEAL 125MLX24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+398,398,VENUS HAIR TREATMENT LEAVE-IN 200ML ANTIDANDRUFF X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+399,399,VENUS HAIR TREATMENT WASH ANTDANDRUFF SOOTHNG 100MLX24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+400,400,VENUS HAIR TREATMENT WASH MOISTURE SEAL 225MLX12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+401,401,VENUS HAIRGEL 110G CURL MOISTURE SEAL X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+402,402,VENUS HR BRAID SPRAY ANTI-DAND 250ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+403,403,VENUS HR FOOD 100ML ANTIBREAKAGE *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+404,404,VENUS HR FOOD 100ML MOISTURISING *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+405,405,VENUS HR FOOD 210ML ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+406,406,VENUS HR FOOD 210ML ANTIBREAKAGE *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+407,407,VENUS HR FOOD 210ML ANTIDANDRUFF *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+408,408,VENUS HR FOOD 210ML ANTIDANDRUFF *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+409,409,VENUS HR FOOD 210ML MOISTURISING *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+410,410,VENUS HR FOOD 210ML MOISTURISING *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+411,411,VENUS HR FOOD 400ML ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+412,412,VENUS HR FOOD 50ML ANTIBREAKAGE *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+413,413,VENUS HR FOOD ANTIDANDRUFF 100ML*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+414,414,VENUS HR FOOD ANTIDANDRUFF 100ML*24 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+415,415,VENUS HR FOOD ANTIDANDRUFF 50ML *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+416,416,VENUS HR FOOD MOISTURE SEAL 100ML X24 -TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+417,417,VENUS HR FOOD MOISTURE SEAL 400ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+418,418,Germol Fresh Soap 125g (bkc),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+419,419,Germol Soap ORIGINAL 125g Black Currant Csd 1.25 Ltr (1x6) Grip,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+420,420,VENUS HR GEL CURL MOISTURE SEAL 110G X24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+421,421,VENUS HR GEL CURL MOISTURE SEAL 110G*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+422,422,VENUS HR GEL CURL MOISTURE SEAL 450G*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+423,423,VENUS HR MOUSSE MOISTURE SEAL 250ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+424,424,VENUS HR SHMP 1L NEUT ANTIBREAKAGE *6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+425,425,VENUS HR SHMP 1L NEUT ANTIBREAKAGE *6 - F0C,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+426,426,VENUS HR SHMP 1L REGULAR ANTIBREAKAGE *6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+427,427,VENUS HR SHMP 1L REGULAR ANTIBREAKAGE *6- FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+428,428,VENUS HR SHMP 250ML NEUT ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+429,429,VENUS HR SHMP 250ML NEUT ANTIBREAKAGE *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+430,430,VENUS HR SHMP 450ML REG ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+431,431,VENUS HR SHMP 450ML REG ANTIBREAKAGE *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+432,432,VENUS HR STYLING GEL ALMOND 210G *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+433,433,VENUS HR STYLING GEL ALOE VERA 110G*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+434,434,VENUS HR STYLING GEL ALOE VERA 210G *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+435,435,VENUS HR STYLING GEL COCNUT OIL 210G*12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+436,436,VENUS HR TEXTURIZER MOISTRESEAL 225ML*12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+437,437,VENUS HR TRT LVE 450ML ANTIDANDRUFF *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+438,438,VENUS HR TRT LVE 450ML ANTIDANDRUFF *6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+439,439,VENUS HR TRT LVE ANTIDANDRUFF 125ML *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+440,440,VENUS HR TRT LVE MOISTURE SEAL 450ML*6,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+441,441,VENUS HR TRT MOISTURE SEAL 125ML *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+442,442,VENUS HR TRT SCLP 100ML ANTIDANDRUFF *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+443,443,VENUS HR TRT SCLP 425ML ANTIDANDRUFF *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+444,444,VENUS HR TRT SCLP 425ML ANTIDANDRUFF *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+445,445,VENUS HR TRT WSH 100ML ANTIBREAKAGE*24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+446,446,VENUS HR TRT WSH 100ML ANTIBREAKAGE*24 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+447,447,VENUS HR TRT WSH 100ML MOISTURISING *24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+448,448,VENUS HR TRT WSH 100ML MOISTURISING *24 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+449,449,VENUS HR TRT WSH 225ML ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+450,450,VENUS HR TRT WSH 225ML ANTIBREAKAGE *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+451,451,VENUS HR TRT WSH 225ML MOISTURISING *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+452,452,VENUS HR TRT WSH 225ML MOISTURISING *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+453,453,VENUS HR TRT WSH 425ML ANTIBREAKAGE *12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+454,454,VENUS HR TRT WSH 425ML ANTIBREAKAGE *12 - FOC,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+455,455,VENUS HR TRT WSH MOISTURE SEAL 100ML X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+456,456,VENUS PURE GLYCERINE 100ML X24,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+457,457,VENUS PURE GLYCERINE 50ML X36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+458,458,VENUS SCENTED GLYCERINE 100MLx24 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+459,459,VENUS SCENTED GLYCERINE 50MLx36 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+460,460,VENUS STYLING GEL 210ML ALOE VERA X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+461,461,VENUS STYLING GEL 210ML COCNUT OIL X12 - TME,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+462,462,WHITE COMPOUND CHOCOLATE 20*500gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+463,463,WHITE COMPOUND CHOCOLATE 4*2.5Kgs,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+464,464,D/Land chocolate spread 12*275gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+465,465,D/land Drinking Chocolate 24*100gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+466,466,BLUEBERRY SAUCE 10x650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+467,467,CHOCOLATE SAUCE 10x650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+468,468,STRAWBERRY SAUCE 10x650gms,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+469,469,Cherish Desire Classic Condoms 24 X3,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+470,470,Germol Fresh Soap 125g (bkc,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+471,471,Germol Cool Soap 125g (bkc),1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+472,472,Papilion 15pcs Travel Wet Wipes Art Therapy,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+473,473,Papilion 15pcs Travel Wet Wipes Art Therapy,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+474,474,Papilion 15pcs Travel Wet Wipes Flower Passion,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+475,475,Papilion 15pcs Travel Wet Wipes Kids 2 Go,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+476,476,Orange Csd 0.35 Ltr (1x12) Grip,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+477,477,Highlands Water 1.0 Ltr (1x12,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+478,478,Lemon Lime 0.35 Ltr (1x12) Grip,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
+479,479,Black Currant Csd 1.25 Ltr (1x6) Grip,1,99010000,BG-Bag,U-Pieces/item [Number],KE-KENYA,,B-16.00%,10,02Finished Product,0,,0,999999,1
